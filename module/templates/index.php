@@ -1,5 +1,9 @@
 
 <?php   
+    if(isset($_GET['action']) || isset($_POST['action'])){
+      include $page;
+      exit;
+    }
     $dbSettings    = mysqli_query($db,"select * from settings");
     $vaSettings    = mysqli_fetch_array($dbSettings);
     
@@ -46,7 +50,7 @@
 
     <link rel="stylesheet" href="assets/lightbox2-2.11.1/dist/css/lightbox.css">
 
-    <title>Mooi</title>
+    <title><?= $vaGeneral['app_name'];?></title>
   </head>
   <body>
 
@@ -57,7 +61,10 @@
 
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="background-color:#fff!important;box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
   <div class="container">
-  <a class="navbar-brand mr-5" href="index.php"><img src="assets/images/logo/<?= $vaSettings['logo']; ?>" alt="logo" height="40"></a>
+    <a class="navbar-brand mr-5" href="index.php" style="font-weight: 700;font-style: italic;">
+      <!-- <img src="assets/images/logo/<?= $vaSettings['logo']; ?>" alt="logo" height="40"> -->
+      Toko Darma
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -89,6 +96,8 @@
       <br>
       <?php
         if(isset($_SESSION['name'])){
+          $dbCart = mysqli_query($db,"select * from cart where id_user='{$_SESSION['user_id']}'");
+          $nCart  = mysqli_num_rows($dbCart);
       ?>
       <li class="dropdown" style="margin-top:-20px;margin-left:-10px;">
           <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -96,7 +105,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
               <a class="dropdown-item" href=""><i class="fa fa-user"></i>&nbsp;Profil</a>
-              <a class="dropdown-item" href=""><i class="fa fa-shopping-cart"></i>&nbsp;Cart</a>
+              <a class="dropdown-item" href="?page=cart"><i class="fa fa-shopping-cart"></i>&nbsp;Cart(<?=$nCart?>)</a>
               <a class="dropdown-item" href="logout.php"><i class="fa fa-arrow-left"></i>&nbsp;Logout</a>
           </div>
         </li>     
@@ -128,10 +137,10 @@
 
 <style>
   div.promo div.bottom div.card:hover div.card-body p.card-text {
-    color: #bbaaa4;
+    color: #282828;
   }
   div.product-wrapper div.main-product div.card:hover div.card-body p.card-text {
-    color: #bbaaa4;
+    color: #282828;
   }
 
 </style>
@@ -141,13 +150,13 @@
        <?php include $page; ?> 
  <style>
      footer div.information div.main div.about div.sosmed a:hover {
-        color: #bbaaa4;
+        color: #282828;
     }
     footer div.information div.main div.item a:hover {
-        color: #bbaaa4;
+        color: #282828;
     }
     footer div.contact div.main div.item i{
-        color: #bbaaa4;
+        color: #282828;
     }
  </style>
      <footer>
@@ -168,7 +177,7 @@
             </div>
         </div>
         <div class="copyright" style="background-color: #363f4d">
-            <p class="mb-0">Copyright &copy; <span id="footer-cr-years"></span> BT Store. All Right Reserved.</p>
+            <p class="mb-0">Copyright &copy; <span id="footer-cr-years"></span> <?= $vaGeneral['app_name'];?>. All Right Reserved.</p>
         </div>
         </footer>
 

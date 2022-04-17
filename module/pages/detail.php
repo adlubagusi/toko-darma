@@ -154,11 +154,12 @@ $vaProduct  = mysqli_fetch_array($dbData);
 
     function buy(){
         $.ajax({
-            url: "cart/add_to_cart",
+            url: "modules/pages/cart",
             type: "post",
             data: {
                 id: <?= $vaProduct['productId']; ?>,
-                qty: $("#qtyProduct").val()
+                qty: $("#qtyProduct").val(),
+                action: 'buy'
             },
             success: function(data){
                 location.href = "cart"
@@ -168,11 +169,12 @@ $vaProduct  = mysqli_fetch_array($dbData);
 
     function addCart(){
         $.ajax({
-            url: "cart/add_to_cart",
+            url: "?page=cart",
             type: "post",
             data: {
                 id: <?= $vaProduct['productId']; ?>,
-                qty: $("#qtyProduct").val()
+                qty: $("#qtyProduct").val(),
+                action: 'add_to_cart'
             },
             success: function(data){
                 console.log(data);
@@ -186,7 +188,7 @@ $vaProduct  = mysqli_fetch_array($dbData);
                     })
                     .then((cart) => {
                     if (cart) {
-                        location.href = "cart"
+                        location.href = "?page=cart"
                     }
                 });
             }

@@ -16,7 +16,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Mooi</title>
+    <title><?= $vaGeneral['app_name'];?></title>
 
     <!-- Custom fonts for this template-->
     <link

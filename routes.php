@@ -4,8 +4,10 @@ if(isset($_GET['page'])){
     $url = $_GET['page'];
     if($url == "about"){
         $page = "module/pages/about.php";
-    }if($url == "cara_pemesanan"){
+    }else if($url == "cara_pemesanan"){
         $page = "module/pages/cara_pemesanan.php";
+    }else if($url == "cart"){
+        $page = "module/pages/cart.php";
     }
 }
 

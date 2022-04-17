@@ -1,7 +1,7 @@
 <?php
 $cHost 		= "localhost";
 $cUser		= "root";
-$cPassword	= "310801";
+$cPassword	= "";
 
 $db	= mysqli_connect($cHost, 
 $cUser, $cPassword, "db_tokodarma") or

@@ -11,6 +11,7 @@ if(isset($_POST['submitlogin'])){
         $cUserPassword = $dbRow['password'];
         if($cUserPassword == $cPassword){
             $cLevel               = $dbRow['level'];
+            $_SESSION['user_id']  = $dbRow['id'];
             $_SESSION['email']    = $dbRow['email'];
             $_SESSION['name']     = $dbRow['name'];
             $_SESSION['telp']     = $dbRow['telp'];
