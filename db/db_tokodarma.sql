@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2022 at 12:25 PM
+-- Generation Time: Apr 17, 2022 at 12:22 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -25,26 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `cookie` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `username`, `password`, `cookie`) VALUES
-(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'aQ20VVR9RDzf6ClUrMncPstv8LrGNYMpkoW87SWw7CXb5qTpymKdTn53zHH1Ee4h');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `banner`
 --
 
@@ -61,6 +41,33 @@ CREATE TABLE `banner` (
 INSERT INTO `banner` (`id`, `img`, `url`) VALUES
 (19, '1602921038655.png', 'http://localhost/olshop/c/pakaian-wanita'),
 (20, '1602921337255.png', 'http://localhost/olshop/c/komputer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` double(16,2) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `img` varchar(50) NOT NULL,
+  `link` varchar(100) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `ket` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `id_user`, `id_product`, `name`, `price`, `qty`, `img`, `link`, `weight`, `ket`) VALUES
+(4, 1, 43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100.00, 1, '1650183481044', 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, 'ukuran 43'),
+(6, 1, 43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100.00, 2, '1650183481044', 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, 'ukuran 41');
 
 -- --------------------------------------------------------
 
@@ -180,7 +187,9 @@ INSERT INTO `img_product` (`id`, `id_product`, `img`) VALUES
 (10, 35, '1598800578610.jpg'),
 (11, 37, '1598800774520.jpg'),
 (13, 42, '1602920870406.jpg'),
-(14, 45, '1649961765942');
+(14, 45, '1649961765942'),
+(15, 43, '1650183541575'),
+(16, 43, '1650183551015');
 
 -- --------------------------------------------------------
 
@@ -210,19 +219,6 @@ CREATE TABLE `invoice` (
 INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status`) VALUES
 (150, '237194', 'Adlu Bagus', 'adlubagusi@gmail.com', '081246319759', 5, 'Perum Griya Permata Alam Blok Q 27', '1500000', 172700099, 174200099, '2020-10-17 13:47:17', 1),
 (151, '981165', 'Tes', 'tes@email.com', '081246319759', 5, 'Perum Griya Permata Alam', '1500000', 62500, 1562500, '2020-10-18 13:36:21', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `news`
---
-
-CREATE TABLE `news` (
-  `id` int(11) NOT NULL,
-  `title` varchar(200) NOT NULL,
-  `banner` varchar(30) NOT NULL,
-  `link` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -279,7 +275,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `promo_price`, `viewer`) VALUES
-(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, '100,000.00', 3);
+(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, '100,000.00', 3),
+(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -418,15 +415,15 @@ INSERT INTO `users` (`id`, `name`, `address`, `poscode`, `telp`, `email`, `passw
 --
 
 --
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `banner`
 --
 ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -463,12 +460,6 @@ ALTER TABLE `img_product`
 -- Indexes for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `news`
---
-ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -524,16 +515,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -563,19 +554,13 @@ ALTER TABLE `general`
 -- AUTO_INCREMENT for table `img_product`
 --
 ALTER TABLE `img_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
-
---
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -587,7 +572,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `region`
