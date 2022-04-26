@@ -8,7 +8,7 @@
       <?php 
         $dbCat = mysqli_query($db,"select * from categories limit 0,7");
         while($c = mysqli_fetch_array($dbCat)){ ?>
-        <a href="c/<?= $c['link']; ?>">
+        <a href="?c=<?= $c['link']; ?>">
           <div class="item">
               <img src="assets/images/icon/<?= $c['icon']; ?>">
               <p><?= $c['name']; ?></p>
@@ -23,7 +23,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">All Categories</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Semua Kategori</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,7 +33,7 @@
             <?php
             $dbCat = mysqli_query($db,"select * from categories");
             while($c = mysqli_fetch_array($dbCat)){ ?>
-            <a href="?page=c&url=<?= $c['link']; ?>">
+            <a href="?c=<?= $c['link']; ?>">
               <div class="item">
                   <img src="assets/images/icon/<?= $c['icon']; ?>">
                   <p><?= $c['name']; ?></p>
