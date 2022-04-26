@@ -23,12 +23,18 @@
     <link rel="stylesheet" href="assets/css/fonts.css">
     <link rel="stylesheet" type="text/css" href="assets/css/app.css">
     <link rel="stylesheet" type="text/css" href="assets/css/app-responsive.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style-responsive.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/page.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/detail.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/<?= $css?>">
+    <link rel="stylesheet" type="text/css" href="assets/css/<?= $responsive?>">
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/style-responsive.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/page.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/detail.css"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/products.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/product-responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
+    -->
 
-    <link
+      <link
       rel="shortcut icon"
       href="assets/images/logo/<?= $vaSettings['favicon']; ?>"
       type="image/x-icon"

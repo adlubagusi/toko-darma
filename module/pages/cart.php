@@ -125,7 +125,7 @@ if(isset($_GET['delete'])){
                 <p>Rp <script>document.write(convertToNumber('<?=$nTotalPrice;?>'))</script></p>
             </div>
             <?php if(mysqli_num_rows($dbCart)){ ?>
-                <a href="payment">
+                <a href="?page=payment">
                     <button class="btn btn-dark btn btn-block mt-2">Continue to Payment</button>
                 </a>
             <?php }else{ ?>
