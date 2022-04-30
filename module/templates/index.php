@@ -150,7 +150,18 @@
   }
 
 </style>
-
+<script>
+  function convertToNumber(string){
+      let number = string.toString().replace(',', '').replace('.','');
+      number = parseInt(number);
+      // number = number/100;
+      const formatter = new Intl.NumberFormat('id-ID', {
+          minimumFractionDigits: 2
+      })
+      number = formatter.format(number);
+      return number;
+  }
+</script>
 
 
        <?php include $page; ?> 
@@ -192,7 +203,7 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="assets/lightbox2-2.11.1/dist/js/lightbox.js"></script>
-    <script src="http://localhost/olshop/assets/js/jquery.countdown.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
     <script>
         $('.recent-product').slick({
             infinite: false,

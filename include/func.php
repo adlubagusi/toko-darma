@@ -13,7 +13,7 @@ function string2Number($cString){
     return str_replace(",","",$cString) ;
 }
   
-function number2String($nNumber,$nDecimals=2){
+function number2String($nNumber,$nDecimals=0){
     $nNumber = floatval(string2Number($nNumber)) ;
-    return number_format($nNumber,$nDecimals,".",",") ;
+    return number_format($nNumber,$nDecimals,",",".") ;
 }

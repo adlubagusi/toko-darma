@@ -7,19 +7,8 @@ if(isset($_POST['action'])){
         $dbProduct = mysqli_query($db,"select * from products where id='$cId'");
         if($vaProduct = mysqli_fetch_array($dbProduct)){
             $nPrice   = string2Number($vaProduct['price']);
-            $vaData   = array(
-                'id' => $cId,
-                'id_user'=>$cIdUser,
-                'name' => $vaProduct['title'],
-                'price' => intval($nPrice),
-                'qty' => $_POST['qty'],
-                'img' => $vaProduct['img'],
-                'link' => $vaProduct['link'],
-                'weight' =>$vaProduct['link'],
-                'ket' => ''
-            );
             mysqli_query($db,"insert into cart (id_product,id_user,name,price,qty,img,link,weight,ket) values ('$cId','$cIdUser','{$vaProduct['title']}',
-                            '$nPrice','$nQty','{$vaProduct['img']}','{$vaProduct['link']}','{$vaProduct['link']}','')");
+                            '$nPrice','$nQty','{$vaProduct['img']}','{$vaProduct['link']}','{$vaProduct['weight']}','')");
         }
     }
 }
@@ -68,18 +57,6 @@ if(isset($_GET['delete'])){
                     <img src="assets/images/product/<?= $item['img']; ?>" alt="">
                     <a href="?p=<?= $item['link']; ?>"><h2 class="title mb-0"><?= $item['name']; ?></h2></a>
                     <small class="text-muted">Qty: <?= $item['qty']; ?></small>
-                    <script>
-                        function convertToNumber(string){
-                            let number = string.replace(',', '').replace('.','');
-                            number = parseInt(number);
-                            number = number/100;
-                            const formatter = new Intl.NumberFormat('en-US', {
-                                minimumFractionDigits: 2
-                            })
-                            number = formatter.format(number);
-                            return number;
-                        }
-                    </script>
                     <h3 class="price mt-0 mb-0">Rp <script>document.write(convertToNumber('<?= $nSubTotal ?>'))</script></h3>
                     <?php if($item['ket'] == ''){ ?>
                         <small class="desc_product_<?= $item['id']; ?>"><a href="#" class="text-dark" data-toggle="modal" data-target="#modalAddDescription" onclick="showModalAddKet('<?= $item['id']; ?>')">Tambahkan deskripsi</a></small>
@@ -109,16 +86,7 @@ if(isset($_GET['delete'])){
                 <p><?= mysqli_num_rows($dbCart);?></p>
             </div>
             <script>
-                function convertToNumber(string){
-                    let number = string.replace(',', '').replace('.','');
-                    number = parseInt(number);
-                    number = number/100;
-                    const formatter = new Intl.NumberFormat('en-US', {
-                        minimumFractionDigits: 2
-                    })
-                    number = formatter.format(number);
-                    return number;
-                }
+                
             </script>
             <div class="list">
                 <p>Total Price</p>
