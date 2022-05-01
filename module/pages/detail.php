@@ -116,7 +116,7 @@ $vaProduct  = mysqli_fetch_array($dbData);
     function convertToNumberDetail(string, multiplier){
         let number = string.replace(',', '').replace('.','');
         number = parseInt(number);
-        number = number/100;
+        //number = number/100;
         number = number * multiplier;
         const formatter = new Intl.NumberFormat('en-US', {
             minimumFractionDigits: 2

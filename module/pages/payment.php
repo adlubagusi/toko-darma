@@ -1,35 +1,46 @@
 <?php
-
-?>
-<script>
-    function convertToNumber(string){
-        let number = string.replace(',', '').replace('.','');
-        number = parseInt(number);
-        number = number/100;
-        const formatter = new Intl.NumberFormat('en-US', {
-            minimumFractionDigits: 2
-        })
-        number = formatter.format(number);
-        return number;
+$cIdUser = $_SESSION['user_id'];
+if(isset($_GET['action'])){
+    if($_GET['action'] == "get_ongkir"){
+        $cId = $_POST['id'];
+        $dbRegion = mysqli_query($db,"select * from region where id='$cId'");
+        $nWeight  = 0;
+        $nList    = 0;
+        $dbCart   = mysqli_query($db,"select * from cart where id_user='$cIdUser'");
+        while($c  = mysqli_fetch_array($dbCart)){
+            $nWeight += $c['weight'] * $c['qty'];
+        }
+        $nWeight = $nWeight / 1000;
+        $nWeight = ceil($nWeight);
+        if($db = mysqli_fetch_array($dbRegion)){
+            $nTotal  = intval($db['price']) * intval($nWeight);
+            $nList += $nTotal;
+        }
+        echo json_encode($nList);
+        exit;
     }
-</script>
-<?php
-echo "<script>alert('under construction !');</script>";
-exit;
+}
 ?>
-<form action="payment/succesfully" method="post">
+<form action="?page=payment&action=succesfully" method="post">
 <div class="wrapper">
     <div class="core">
-        <?php if($this->cart->total_items() > 0){ ?>
+        <?php 
+        $dbCart = mysqli_query($db,"select * from cart where id_user='$cIdUser'");
+        if(mysqli_num_rows($dbCart) > 0){
+            $nTotalPrice = 0;
+        ?>
         <div class="products">
             <table class="table">
                 <tr>
-                    <th>Product</th>
-                    <th>Qty</th>
+                    <th>Produk</th>
+                    <th>Jumlah</th>
                     <th>Info</th>
-                    <th>Price</th>
+                    <th>Harga</th>
                 </tr>
-                <?php foreach($this->cart->contents() as $item): ?>
+                <?php
+                    while($item = mysqli_fetch_array($dbCart)){
+                        $nTotalPrice = $item['price'] * $item['qty'];
+                ?>
                 <tr>
                     <td># <?= $item['name']; ?></td>
                     <td class="text-center"><?= $item['qty']; ?></td>
@@ -38,17 +49,17 @@ exit;
                     <?php }else{ ?>
                         <td><?= $item['ket']; ?></td>
                     <?php } ?>
-                    <td><?= $this->config->item('currency'); ?><script>document.write(convertToNumber('<?= $item['subtotal']; ?>'))</script></td>
+                    <td>Rp <script>document.write(convertToNumber('<?= $nTotalPrice; ?>'))</script></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php } ?>
             </table>
         </div>
         <div class="line"></div>
         <div class="address">
-            <h2 class="title">Shipping address</h2>
+            <h2 class="title">Alamat Pengiriman</h2>
             <hr>
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Atas Nama</label>
                 <input type="text" id="name" autocomplete="off" class="form-control" required name="name">
             </div>
             <div class="form-group">
@@ -56,21 +67,24 @@ exit;
                 <input type="email" id="email" autocomplete="off" class="form-control" required name="email">
             </div>
             <div class="form-group">
-                <label for="telp">Telephone</label>
+                <label for="telp">Telepon</label>
                 <input type="number" id="telp" autocomplete="off" class="form-control" required name="telp">
             </div>
             <div class="form-group">
-                <label for="selectRegionPayment">Region</label>
+                <label for="selectRegionPayment">Wilayah</label>
                 <select name="region" id="selectRegionPayment" class="form-control" required>
                     <option></option>
-                    <?php foreach($region->result_array() as $d): ?>
+                    <?php 
+                    $dbRegion = mysqli_query($db,"select * from region order by region");
+                    while($d = mysqli_fetch_array($dbRegion)){ 
+                    ?>
                         <option value="<?= $d['id']; ?>"><?= $d['region']; ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="form-group">
-                <label for="address">Full Address</label>
-                <textarea name="address" rows="3" id="address" class="form-control" placeholder="Fill in the street name, house number, building name, etc." required></textarea>
+                <label for="address">Alamat Lengkap</label>
+                <textarea name="address" rows="3" id="address" class="form-control" placeholder="Isikan nama jalan, nomor rumah, nama gedung, dll." required></textarea>
             </div>
         </div>
         <?php }else{ ?>
@@ -82,18 +96,18 @@ exit;
         <hr>
         <div class="list">
             <p>Total Shopping</p>
-            <p><?= $this->config->item('currency'); ?><script>document.write(convertToNumber('<?= $this->cart->total(); ?>'))</script></p>
+            <p>Rp <script>document.write(convertToNumber('<?= $nTotalPrice ?>'))</script></p>
         </div>
             <div class="list">
                 <p>Shipping Cost</p>
-                <p id="paymentSendingPrice"><?= $this->config->item('currency'); ?><script>document.write(convertToNumber('0'))</script></p>
+                <p id="paymentSendingPrice">Rp <script>document.write(convertToNumber('0'))</script></p>
             </div>
             <hr>
             <div class="list">
                 <p>Total Bill</p>
-                <p id="paymentTotalAll"><?= $this->config->item('currency'); ?><script>document.write(convertToNumber('<?= $this->cart->total(); ?>'))</script></p>
+                <p id="paymentTotalAll">Rp <script>document.write(convertToNumber('<?= $nTotalPrice ?>'))</script></p>
             </div>
-        <?php if($this->cart->total_items() > 0){ ?>
+        <?php if(mysqli_num_rows($dbCart) > 0){?>
             <button class="btn btn-dark btn btn-block mt-2" id="btnPaymentNow" type="submit">Continue</button>
         <?php }else{ ?>
             <div class="alert mt-2 alert-warning">Your basket is still empty.</div>
@@ -104,3 +118,31 @@ exit;
     </div>
 </div>
 </form>
+<script src="assets/select2-4.0.6-rc.1/dist/js/select2.min.js"></script>
+<script>
+    $("#selectRegionPayment").select2({
+        placeholder: 'Pilih Wilayah',
+        language: 'id'
+    })
+    $("#selectRegionPayment").change(paymentOngkirPrice)
+
+    function paymentOngkirPrice(){
+        $("#paymentSendingPrice").text("Loading..")
+        const id = $("#selectRegionPayment").val();
+        $.ajax({
+            url: "?page=payment&action=get_ongkir",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: {
+                id: id
+            },
+            success: function(data){
+                $("#paymentSendingPrice").text("Rp "+convertToNumber(data));
+                const price = "<?= $nTotalPrice ?>";
+                const total = parseInt(price) + parseInt(data);
+                $("#paymentTotalAll").text("Rp "+convertToNumber(total));
+            }
+        });
+    }
+</script>
