@@ -71,11 +71,22 @@ $vaProduct  = mysqli_fetch_array($dbData);
                     <?php } ?>
                 </table>
                 <hr>
-                <?php if($vaProduct['stock'] > 0){ ?>
+                <?php 
+                if($vaProduct['stock'] > 0){ 
+                    if(!isset($_SESSION['user_id'])){
+                ?>
+                <button class="btn btn-warning pl-5 pr-5" onclick="login_first()">Beli Sekarang</button>
+                <button class="btn btn-primary" onclick="login_first()">Masukkan Keranjang</button>
+                <?php       
+                    }else{
+                ?>
                 <button class="btn btn-warning pl-5 pr-5" onclick="buy()">Beli Sekarang</button>
                 <button class="btn btn-primary" onclick="addCart()">Masukkan Keranjang</button>
+                <?php
+                    }
+                ?>
                 <?php }else{ ?>
-                <p class="btn btn-outline-secondary">Out of stock</p>
+                <p class="btn btn-outline-secondary">Stok Habis</p>
                 <?php } ?>
             </div>
         </div>
@@ -116,9 +127,9 @@ $vaProduct  = mysqli_fetch_array($dbData);
     function convertToNumberDetail(string, multiplier){
         let number = string.replace(',', '').replace('.','');
         number = parseInt(number);
-        //number = number/100;
+        number = number/100;
         number = number * multiplier;
-        const formatter = new Intl.NumberFormat('en-US', {
+        const formatter = new Intl.NumberFormat('id-ID', {
             minimumFractionDigits: 2
         })
         number = formatter.format(number);
@@ -151,18 +162,21 @@ $vaProduct  = mysqli_fetch_array($dbData);
 
         return s.join(dec)
     }
+    function login_first(){
+        location.href = "login.php"
+    }
 
     function buy(){
         $.ajax({
-            url: "modules/pages/cart",
+            url: "?page=cart",
             type: "post",
             data: {
                 id: <?= $vaProduct['productId']; ?>,
                 qty: $("#qtyProduct").val(),
-                action: 'buy'
+                action: 'add_to_cart'
             },
             success: function(data){
-                location.href = "cart"
+                location.href = "?page=cart"
             }
         })
     }
@@ -177,14 +191,13 @@ $vaProduct  = mysqli_fetch_array($dbData);
                 action: 'add_to_cart'
             },
             success: function(data){
-                console.log(data);
                 $(".navbar-cart-inform").html(`<i class="fa fa-shopping-cart"></i> Cart(1)`);
                 swal({
-                    title: "Successfully Added to Cart",
+                    title: "Berhasil Ditambahkan ke Keranjang",
                     text: `<?= $vaProduct['title']; ?>`,
                     icon: "success",
                     buttons: true,
-                    buttons: ["Continue Shopping", "View Cart"],
+                    buttons: ["Lanjutkan Belanja", "Lihat Keranjang"],
                     })
                     .then((cart) => {
                     if (cart) {
