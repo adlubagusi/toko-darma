@@ -12,6 +12,10 @@ if(isset($_GET['page'])){
         $page = "module/pages/cara_pemesanan.php";
         $css  = 'page.css';
         $responsive = '';
+    }else if($url == "rekening"){
+        $page = "module/pages/norekening.php";
+        $css  = 'page.css';
+        $responsive = '';
     }else if($url == "cart"){
         $page = "module/pages/cart.php";
         $css  = 'cart.css';

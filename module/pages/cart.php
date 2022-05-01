@@ -65,14 +65,14 @@ if(isset($_GET['delete'])){
                     <?php } ?>
                     <div class="clearfix"></div>
                 </div>
-                <a href="?page=cart&delete=<?= $item['id']; ?>" onclick="return confirm('Are you sure you want to remove this product from your cart?')"><i class="fa fa-trash"></i></a>
+                <a href="?page=cart&delete=<?= $item['id']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari keranjang')"><i class="fa fa-trash"></i></a>
             </div>
             <hr>
             <?php 
                 $nTotalPrice +=$nSubTotal;    
             } 
             ?>
-            <a href="?page=cart&action=delete_cart" onclick="return confirm('Are you sure you want to empty the Cart?')"><button class="btn btn-outline-dark">Empty the Cart</button></a>
+            <a href="?page=cart&action=delete_cart" onclick="return confirm('Apakah Anda yakin ingin mengosongkan Keranjang??')"><button class="btn btn-outline-dark">Kosongkan Keranjang</button></a>
             <?php }else{ ?>
                 <div class="alert alert-warning">Keranjang masih kosong. Ayo belanja dulu..</div>
                 <br><br><br>
@@ -82,19 +82,19 @@ if(isset($_GET['delete'])){
             <h2 class="title">Ringkasan Belanja</h2>
             <hr>
             <div class="list">
-                <p>Total Items</p>
+                <p>Jumlah Barang</p>
                 <p><?= mysqli_num_rows($dbCart);?></p>
             </div>
             <script>
                 
             </script>
             <div class="list">
-                <p>Total Price</p>
+                <p>Total Harga</p>
                 <p>Rp <script>document.write(convertToNumber('<?=$nTotalPrice;?>'))</script></p>
             </div>
             <?php if(mysqli_num_rows($dbCart)){ ?>
                 <a href="?page=payment">
-                    <button class="btn btn-dark btn btn-block mt-2">Continue to Payment</button>
+                    <button class="btn btn-dark btn btn-block mt-2">Checkout</button>
                 </a>
             <?php }else{ ?>
                 <a href="index.php">
@@ -111,7 +111,7 @@ if(isset($_GET['delete'])){
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Edit Description</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">Edit Deskripsi</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

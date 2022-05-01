@@ -18,8 +18,44 @@ if(isset($_GET['action'])){
         }
         echo json_encode($nList);
         exit;
+    }else if($_GET['action'] == "succesfully"){
+        $invoice = substr(time(),7) . substr(rand(),0,3);
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $telp = $_POST['telp'];
+        $region = $_POST['region'];
+        $address = $_POST['address'];
+        $totalPrice = 0;
+        $dateInput = date('Y-m-d H:i:s');
+        $weight = 0;
+        $dbCart   = mysqli_query($db,"select * from cart where id_user='$cIdUser'");
+        while($c  = mysqli_fetch_array($dbCart)){
+            $weight += $c['weight'] * $c['qty'];
+            $nSubTotal = $c['qty'] * $c['price'];
+            $totalPrice += $nSubTotal;
+        }
+        $weight = $weight / 1000;
+        $weight = ceil($weight);
+        $ongkir = 0;
+        $dbRegion = mysqli_query($db,"select * from region where id='$region'");
+        if($r = mysqli_fetch_array($dbRegion)){
+            $nTotal  = intval($r['price']) * intval($weight);
+            $ongkir += $nTotal;
+        }
+        $totalAll = intval($totalPrice) + intval($ongkir);
+        mysqli_query($db,"insert into invoice (invoice_code,name,email,telp,region,address,ongkir,total_price,total_all,date_input,status) values ('$invoice','$name','$email','$telp','$region','$address','$ongkir','$totalPrice','$totalAll','$dateInput','0')");
+        
+        $dbCart   = mysqli_query($db,"select * from cart where id_user='$cIdUser'");
+        while($c  = mysqli_fetch_array($dbCart)){
+            mysqli_query($db,"insert into transaction (id_invoice,product_name,price,qty,link,ket) values ('$invoice','{$c['name']}','{$c['price']}','{$c['qty']}','{$c['link']}','{$c['ket']}')"); 
+        }
+        mysqli_query($db,"delete from cart where id_user='$cIdUser'");
+        echo "<script>alert('Transaksi Berhasil! Upload Bukti Pembayaran!')</script>";
+        echo "<script>window.location.href = 'index.php?page=payment_file';</script>";
+        exit;
     }
 }
+
 ?>
 <form action="?page=payment&action=succesfully" method="post">
 <div class="wrapper">
@@ -28,6 +64,7 @@ if(isset($_GET['action'])){
         $dbCart = mysqli_query($db,"select * from cart where id_user='$cIdUser'");
         if(mysqli_num_rows($dbCart) > 0){
             $nTotalPrice = 0;
+            $nSubTotalPrice = 0;
         ?>
         <div class="products">
             <table class="table">
@@ -39,7 +76,8 @@ if(isset($_GET['action'])){
                 </tr>
                 <?php
                     while($item = mysqli_fetch_array($dbCart)){
-                        $nTotalPrice = $item['price'] * $item['qty'];
+                        $nSubTotalPrice = $item['price'] * $item['qty'];
+                        $nTotalPrice += $nSubTotalPrice;
                 ?>
                 <tr>
                     <td># <?= $item['name']; ?></td>
@@ -49,7 +87,7 @@ if(isset($_GET['action'])){
                     <?php }else{ ?>
                         <td><?= $item['ket']; ?></td>
                     <?php } ?>
-                    <td>Rp <script>document.write(convertToNumber('<?= $nTotalPrice; ?>'))</script></td>
+                    <td>Rp <script>document.write(convertToNumber('<?= $nSubTotalPrice; ?>'))</script></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -88,31 +126,31 @@ if(isset($_GET['action'])){
             </div>
         </div>
         <?php }else{ ?>
-            <div class="alert alert-warning">Oops. You don't have any groceries yet. Let's shop first.</div>
+            <div class="alert alert-warning">Anda belum memiliki belanjaan. Ayo belanja dulu.</div>
         <?php } ?>
     </div>
     <div class="total shadow">
-        <h2 class="title">Shopping Summary</h2>
+        <h2 class="title">Ringkasan Belanja</h2>
         <hr>
         <div class="list">
-            <p>Total Shopping</p>
+            <p>Total Belanja</p>
             <p>Rp <script>document.write(convertToNumber('<?= $nTotalPrice ?>'))</script></p>
         </div>
             <div class="list">
-                <p>Shipping Cost</p>
+                <p>Biaya pengiriman</p>
                 <p id="paymentSendingPrice">Rp <script>document.write(convertToNumber('0'))</script></p>
             </div>
             <hr>
             <div class="list">
-                <p>Total Bill</p>
+                <p>Total Tagihan</p>
                 <p id="paymentTotalAll">Rp <script>document.write(convertToNumber('<?= $nTotalPrice ?>'))</script></p>
             </div>
         <?php if(mysqli_num_rows($dbCart) > 0){?>
             <button class="btn btn-dark btn btn-block mt-2" id="btnPaymentNow" type="submit">Continue</button>
         <?php }else{ ?>
-            <div class="alert mt-2 alert-warning">Your basket is still empty.</div>
-            <a href="">
-                <button class="btn btn-dark btn btn-block mt-2">Shopping First</button>
+            <div class="alert mt-2 alert-warning">Keranjang Anda Masing Kosong.</div>
+            <a href="index.php">
+                <button class="btn btn-dark btn btn-block mt-2">Belanja dulu</button>
             </a>
         <?php } ?>
     </div>
@@ -145,4 +183,5 @@ if(isset($_GET['action'])){
             }
         });
     }
+    
 </script>
