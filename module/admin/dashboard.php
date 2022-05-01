@@ -9,14 +9,16 @@
 <!-- Content Row -->
 <div class="row">
 
-  <?php //$data = $this->db->get_where('invoice', ['status' => 0])->num_rows(); ?>
+  <?php 
+  $data = mysqli_num_rows(mysqli_query($db,"select * from invoice where status=0"));
+  ?>
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-dark shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Pesanan Masuk</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$data?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -26,13 +28,16 @@
     </div>
   </div>
 
+  <?php 
+  $data = mysqli_num_rows(mysqli_query($db,"select * from invoice where status=1"));
+  ?>
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-dark shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Pesanan Sukses</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$data?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -42,14 +47,16 @@
     </div>
   </div>
 
-  <?php //$data = $this->db->get('categories')->num_rows(); ?>
+  <?php 
+  $data = mysqli_num_rows(mysqli_query($db,"select * from categories"));
+  ?>
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-dark shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Kategori</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$data?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -59,14 +66,16 @@
     </div>
   </div>
 
-  <?php //$data = $this->db->get('products')->num_rows(); ?>
+  <?php 
+  $data = mysqli_num_rows(mysqli_query($db,"select * from products"));
+  ?>
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-dark shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Produk</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$data?></div>
           </div>
           <div class="col-auto">
             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -82,33 +91,42 @@
     <div class="col-md-6 mb-3">
         <div class="card shadow">
             <div class="card-header">
-            Orders In
+            Pesanan Masuk
             </div>
             <div class="card-body">
-                                <div class="table-responsive">
+                <?php 
+                $data = mysqli_query($db,"select * from invoice where status=0");
+                if(mysqli_num_rows($data) > 0){ ?>
+                <div class="table-responsive">
                   <table class="table table-bordered" width="100%">
-                      <tbody><tr>
+                      <tr>
                           <th>Invoice</th>
                           <th>Name</th>
                           <th>Total</th>
                       </tr>
-                                                <tr>
-                              <td>981165</td>
-                              <td>Tes</td>
-                              <td>1.562.500</td>
+                      <?php while($d = mysqli_fetch_array($data)){ ?>
+                          <tr>
+                              <td><?= $d['invoice_code'] ?></td>
+                              <td><?= $d['name'] ?></td>
+                              <td><?= number_format($d['total_all'],0,".",",") ?></td>
                           </tr>
-                                        </tbody></table>
+                      <?php } ?>
+                  </table>
                 </div>
-                            </div>
+                <?php }else{ ?>
+                    <div class="alert alert-warning">Belum ada pesanan</div>
+                <?php } ?>
+            </div>
         </div>
     </div>    
         <div class="col-md-6 mb-3">
         <div class="card shadow">
             <div class="card-header">
-            About Mooi            </div>
+              Tentang <?= $vaGeneral['app_name']; ?>            
+            </div>
             <div class="card-body">
-                Mooi is an easy and reliable online shop site. We have a physical shop that you can visit. Here sells a variety of computers, gadgets, and men's and women's clothing                <hr>
-                Denpasar, Bali            </div>
+            <?= $vaSettings['short_desc']; ?>
+          </div>
         </div>
     </div>
 </div>

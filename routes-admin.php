@@ -4,6 +4,8 @@ if(isset($_GET['page'])){
     $url = $_GET['page'];
     if($url == "home"){
         $page = "module/admin/dashboard.php";
+    }else if($url == "orders"){
+        $page = "module/admin/orders.php";
     }else if($url == "categories"){
         $page = "module/admin/categories.php";
     }else if($url == "products"){

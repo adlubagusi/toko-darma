@@ -520,7 +520,7 @@ if(!isset($_GET['opt'])){
                         <?php while($dbRImg = mysqli_fetch_array($dbImg)){ ?>
                             <div class="col-md-6 mb-3">
                                 <img src="assets/images/product/<?= $dbRImg['img'] ?>" width="100%">
-                                <a href="?page=products&opt=delete_other_img&id=<?= $dbRImg['id']; ?>&idproduk=<?= $cID;?>" class="btn btn-block btn-sm btn-danger mt-1" onclick="return confirm('Are sure you want to delete?')">Delete</a>
+                                <a href="?page=products&opt=delete_other_img&id=<?= $dbRImg['id']; ?>&idproduk=<?= $cID;?>" class="btn btn-block btn-sm btn-danger mt-1" onclick="return confirm('Apakah Anda Yakin?')">Delete</a>
                             </div>
                         <?php } ?>
                     </div>
