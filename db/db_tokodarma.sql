@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2022 at 12:22 PM
+-- Generation Time: May 01, 2022 at 11:47 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -53,21 +53,13 @@ CREATE TABLE `cart` (
   `id_user` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `price` double(16,2) NOT NULL,
+  `price` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `img` varchar(50) NOT NULL,
   `link` varchar(100) NOT NULL,
   `weight` int(11) NOT NULL,
   `ket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `id_user`, `id_product`, `name`, `price`, `qty`, `img`, `link`, `weight`, `ket`) VALUES
-(4, 1, 43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100.00, 1, '1650183481044', 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, 'ukuran 43'),
-(6, 1, 43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100.00, 2, '1650183481044', 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, 'ukuran 41');
 
 -- --------------------------------------------------------
 
@@ -187,9 +179,12 @@ INSERT INTO `img_product` (`id`, `id_product`, `img`) VALUES
 (10, 35, '1598800578610.jpg'),
 (11, 37, '1598800774520.jpg'),
 (13, 42, '1602920870406.jpg'),
-(14, 45, '1649961765942'),
 (15, 43, '1650183541575'),
-(16, 43, '1650183551015');
+(16, 43, '1650183551015'),
+(17, 44, '1651391282609'),
+(19, 44, '1651391298161'),
+(20, 44, '1651391320099'),
+(21, 45, '1651391597862');
 
 -- --------------------------------------------------------
 
@@ -217,8 +212,8 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status`) VALUES
-(150, '237194', 'Adlu Bagus', 'adlubagusi@gmail.com', '081246319759', 5, 'Perum Griya Permata Alam Blok Q 27', '1500000', 172700099, 174200099, '2020-10-17 13:47:17', 1),
-(151, '981165', 'Tes', 'tes@email.com', '081246319759', 5, 'Perum Griya Permata Alam', '1500000', 62500, 1562500, '2020-10-18 13:36:21', 0);
+(176, '623966', 'Qwwerty', 'user@gmail.com', '082', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 0),
+(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0);
 
 -- --------------------------------------------------------
 
@@ -276,7 +271,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `promo_price`, `viewer`) VALUES
 (42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, '100,000.00', 3),
-(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, '', 0);
+(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, '', 0),
+(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 0, '', 0),
+(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -295,12 +292,10 @@ CREATE TABLE `region` (
 --
 
 INSERT INTO `region` (`id`, `region`, `price`) VALUES
-(5, 'Malang Kota/Kab.', 500000),
-(6, 'Surabaya Kota/Kab.', 1500000),
-(8, 'Bali', 5000000),
 (9, 'Denpasar Utara', 5000),
 (10, 'Badung', 7500),
-(11, 'Gianyar', 10000);
+(11, 'Gianyar', 10000),
+(12, 'Tabanan', 8000);
 
 -- --------------------------------------------------------
 
@@ -373,7 +368,7 @@ CREATE TABLE `transaction` (
   `product_name` varchar(100) NOT NULL,
   `price` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `slug` varchar(100) NOT NULL,
+  `link` varchar(100) NOT NULL,
   `ket` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -381,9 +376,9 @@ CREATE TABLE `transaction` (
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `slug`, `ket`) VALUES
-(208, 237194, 'Lenovo Legion Y540 15.6 Laptop 144Hz i7-9750H 16GB RAM 256GB SSD GTX 1660Ti 6GB', 172700099, 1, 'lenovo-legion-y540-156-laptop-144hz-i7-9750h-16gb-ram-256gb-ssd-gtx-1660ti-6gb', ''),
-(209, 981165, 'MACBOOK PRO 13\" RETINA @ CORE i7 @ 16GB RAM 1TB SSD 3 YEAR WARRANTY @ OS-2019', 62500, 1, 'macbook-pro-13-retina-core-i7-16gb-ram-1tb-ssd-3-year-warranty-os-2019', '');
+INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `link`, `ket`) VALUES
+(227, 623966, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43'),
+(228, 212117, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 25, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', '');
 
 -- --------------------------------------------------------
 
@@ -408,7 +403,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `address`, `poscode`, `telp`, `email`, `password`, `level`) VALUES
 (1, 'Qwerty Uiop', 'Denpasar', '65152', '081234567890', 'user@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
-(2, 'Administrator', '', '', '', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin');
+(2, 'Administrator', '', '', '', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
+(3, 'Bagus', 'Jl. Jalan No. 123', '65150', '085', 'user2@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user');
 
 --
 -- Indexes for dumped tables
@@ -524,7 +520,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -554,13 +550,13 @@ ALTER TABLE `general`
 -- AUTO_INCREMENT for table `img_product`
 --
 ALTER TABLE `img_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -572,13 +568,13 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -602,13 +598,13 @@ ALTER TABLE `testimonial`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
