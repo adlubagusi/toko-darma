@@ -27,6 +27,19 @@
         echo "<script>alert('Data Disimpan');</script>";
         echo "<script>window.location.href = 'admin.php?page=settings&opt=delivery';</script>";
     }
+    if(isset($_GET['opt'])){
+		if($_GET['opt'] == "delete_delivery"){
+			$cID  = $_GET['id'];
+			$dbDt = mysqli_query($db,"select * from region where id='$cID'");
+			if($dbRw = mysqli_fetch_array($dbDt)){
+				mysqli_query($db,"delete from region where id='$cID'");
+				echo "<script>alert('Data Dihapus');</script>";
+				echo "<script>window.location.href = 'admin.php?page=settings&opt=delivery';</script>";
+			}else{
+				echo "<script>alert('Data Tidak Ditemukan');</script>";
+			}
+		}
+    }
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -173,7 +186,7 @@
                             <td><?= $dbR['region']; ?></td>
                             <td>Rp <?= number2String($dbR['price']); ?></script></td>
                             <td style="width: 100px">
-                                <a href="administrator/delete_delivery/<?= $dbR['id']; ?>" onclick="return confirm('Are sure you want to delete this delivery region?')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
+                                <a href="?page=settings&opt=delete_delivery&id=<?= $dbR['id']; ?>" onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <?php $no++; } ?>

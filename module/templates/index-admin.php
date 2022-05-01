@@ -128,11 +128,11 @@
         <!-- Divider -->
         <hr class="sidebar-divider" />
 
-        <?php //$orders = $this->db->get_where('invoice', ['status' => 0]); ?>
+        <?php $orders = mysqli_num_rows(mysqli_query($db,"select * from invoice where status=0")); ?>
         <li class="nav-item">
-          <a class="nav-link" href="?page=adm_orders">
+          <a class="nav-link" href="?page=orders">
             <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Order</span> <small class="badge badge-warning">10 new</small></a
+            <span>Pesanan</span> <small class="badge badge-warning"><?=$orders?> baru</small></a
           >
         </li>
 
