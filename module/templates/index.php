@@ -58,7 +58,7 @@
 
     <title><?= $vaGeneral['app_name'];?></title>
   </head>
-  <body>
+  <body style="background-color: #f8f9fa !important;">
 
   <div class="loading-animation-screen">
     <div class="overlay-screen"></div>
@@ -92,6 +92,7 @@
           <a class="nav-link text-dark" href="?page=about">Tentang kami</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-dark" href="?page=history">Riwayat Pesanan</a>
         </li>
         <li class="nav-item">
         </li>
