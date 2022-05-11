@@ -13,7 +13,6 @@
 		$cDir		  	= "./assets/images/product/".$cImg;
 		$dDate			= date("Y-m-d H:i:s");
 		if (move_uploaded_file($_FILES["cImg"]["tmp_name"], $cDir)) {
-			print_r($_POST);
 			mysqli_query($db,"insert into products (title,price,stock,category,condit,weight,img,description,date_submit,publish,link) 
 						values ('$cTitle','$nPrice','$nStock','$cCategory','$cCondition','$nWeight','$cImg','$cDescription','$dDate','$cStatus','$cLink')");
 			echo "<script>alert('Data Disimpan');</script>";

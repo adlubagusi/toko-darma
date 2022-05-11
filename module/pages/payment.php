@@ -43,15 +43,15 @@ if(isset($_GET['action'])){
             $ongkir += $nTotal;
         }
         $totalAll = intval($totalPrice) + intval($ongkir);
-        mysqli_query($db,"insert into invoice (invoice_code,name,email,telp,region,address,ongkir,total_price,total_all,date_input,status) values ('$invoice','$name','$email','$telp','$region','$address','$ongkir','$totalPrice','$totalAll','$dateInput','0')");
+        mysqli_query($db,"insert into invoice (invoice_code,name,email,telp,region,address,ongkir,total_price,total_all,date_input,status_payment,status_delivery) values ('$invoice','$name','$email','$telp','$region','$address','$ongkir','$totalPrice','$totalAll','$dateInput','0','0')");
         
         $dbCart   = mysqli_query($db,"select * from cart where id_user='$cIdUser'");
         while($c  = mysqli_fetch_array($dbCart)){
             mysqli_query($db,"insert into transaction (id_invoice,product_name,price,qty,link,ket) values ('$invoice','{$c['name']}','{$c['price']}','{$c['qty']}','{$c['link']}','{$c['ket']}')"); 
         }
         mysqli_query($db,"delete from cart where id_user='$cIdUser'");
-        echo "<script>alert('Transaksi Berhasil! Upload Bukti Pembayaran!')</script>";
-        echo "<script>window.location.href = 'index.php?page=payment_file';</script>";
+        echo "<script>alert('Transaksi Berhasil! Silahkan Melakukan Pembayaran!')</script>";
+        echo "<script>window.location.href = 'index.php?page=rekening';</script>";
         exit;
     }
 }
@@ -98,15 +98,15 @@ if(isset($_GET['action'])){
             <hr>
             <div class="form-group">
                 <label for="name">Atas Nama</label>
-                <input type="text" id="name" autocomplete="off" class="form-control" required name="name">
+                <input type="text" id="name" autocomplete="off" class="form-control" required name="name" value="<?= $_SESSION['name']?>">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" autocomplete="off" class="form-control" required name="email">
+                <input type="email" id="email" autocomplete="off" class="form-control" required name="email" value="<?= $_SESSION['email']?>">
             </div>
             <div class="form-group">
                 <label for="telp">Telepon</label>
-                <input type="number" id="telp" autocomplete="off" class="form-control" required name="telp">
+                <input type="number" id="telp" autocomplete="off" class="form-control" required name="telp" value="<?= $_SESSION['telp']?>">
             </div>
             <div class="form-group">
                 <label for="selectRegionPayment">Wilayah</label>

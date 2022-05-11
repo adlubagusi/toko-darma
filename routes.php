@@ -28,6 +28,10 @@ if(isset($_GET['page'])){
         $page = "module/pages/payment.php";
         $css = 'payment.css';
         $responsive = '';
+    }else if($url == "history"){
+        $page = "module/pages/history.php";
+        $css = 'page.css';
+        $responsive = '';
     }   
 }
 
