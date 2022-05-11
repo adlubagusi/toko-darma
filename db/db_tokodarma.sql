@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 11:47 AM
+-- Generation Time: May 11, 2022 at 07:20 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -87,19 +87,6 @@ INSERT INTO `categories` (`id`, `name`, `icon`, `link`) VALUES
 (20, 'Aksesoris Fashion', '1650009708100', 'aksesoris-fashion'),
 (21, 'Komputer & Aksesoris', '1650009758264', 'komputer-aksesoris'),
 (22, 'Prawatan & Kecantikan', '1650009840627', 'prawatan-kecantikan');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `email_send`
---
-
-CREATE TABLE `email_send` (
-  `id` int(11) NOT NULL,
-  `mail_to` int(11) NOT NULL,
-  `subject` varchar(100) NOT NULL,
-  `message` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -204,16 +191,19 @@ CREATE TABLE `invoice` (
   `total_price` int(11) NOT NULL,
   `total_all` int(11) NOT NULL,
   `date_input` datetime NOT NULL,
-  `status` int(1) NOT NULL
+  `status_payment` int(1) NOT NULL,
+  `status_delivery` int(1) NOT NULL,
+  `bukti_transfer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status`) VALUES
-(176, '623966', 'Qwwerty', 'user@gmail.com', '082', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 0),
-(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0);
+INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status_payment`, `status_delivery`, `bukti_transfer`) VALUES
+(176, '623966', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 0, 0, ''),
+(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, ''),
+(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 0, 0, '1652288215039');
 
 -- --------------------------------------------------------
 
@@ -378,7 +368,11 @@ CREATE TABLE `transaction` (
 
 INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `link`, `ket`) VALUES
 (227, 623966, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43'),
-(228, 212117, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 25, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', '');
+(228, 212117, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 25, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', ''),
+(229, 507119, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', ''),
+(230, 507119, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
+(231, 435671, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
+(232, 435671, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43');
 
 -- --------------------------------------------------------
 
@@ -402,7 +396,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `address`, `poscode`, `telp`, `email`, `password`, `level`) VALUES
-(1, 'Qwerty Uiop', 'Denpasar', '65152', '081234567890', 'user@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
+(1, 'Qwerty Uiop', 'Jl. Jalan sama kamu no 1', '65152', '081234567890', 'user@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
 (2, 'Administrator', '', '', '', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
 (3, 'Bagus', 'Jl. Jalan No. 123', '65150', '085', 'user2@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user');
 
@@ -426,12 +420,6 @@ ALTER TABLE `cart`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `email_send`
---
-ALTER TABLE `email_send`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -520,19 +508,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `email_send`
---
-ALTER TABLE `email_send`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `footer`
@@ -556,7 +538,7 @@ ALTER TABLE `img_product`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -598,7 +580,7 @@ ALTER TABLE `testimonial`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT for table `users`
