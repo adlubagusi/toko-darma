@@ -71,7 +71,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <?php
                                     }else{
                             ?>
-								<td>Menunggu Pembayaran</td>
+								<td><span class="badge badge-danger">Menunggu Pembayaran</span></td>
                             <?php
                                     }
                                 } 
