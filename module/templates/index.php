@@ -92,9 +92,6 @@
           <a class="nav-link text-dark" href="?page=about">Tentang kami</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="?page=history">Riwayat Pesanan</a>
-        </li>
-        <li class="nav-item">
         </li>
         <li class="nav-item">
         </li>
@@ -113,6 +110,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
               <a class="dropdown-item" href=""><i class="fa fa-user"></i>&nbsp;Profil</a>
               <a class="dropdown-item" href="?page=cart"><i class="fa fa-shopping-cart"></i>&nbsp;Cart(<?=$nCart?>)</a>
+              <a class="dropdown-item" href="?page=history"><i class="fa fa-history"></i>&nbsp;Riwayat Pesanan</a>
               <a class="dropdown-item" href="logout.php"><i class="fa fa-arrow-left"></i>&nbsp;Logout</a>
           </div>
         </li>     

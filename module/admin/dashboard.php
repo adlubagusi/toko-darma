@@ -10,7 +10,7 @@
 <div class="row">
 
   <?php 
-  $data = mysqli_num_rows(mysqli_query($db,"select * from invoice where status=0"));
+  $data = mysqli_num_rows(mysqli_query($db,"select * from invoice where status_payment=0"));
   ?>
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-dark shadow h-100 py-2">
@@ -29,7 +29,7 @@
   </div>
 
   <?php 
-  $data = mysqli_num_rows(mysqli_query($db,"select * from invoice where status=1"));
+  $data = mysqli_num_rows(mysqli_query($db,"select * from invoice where status_payment=1"));
   ?>
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-dark shadow h-100 py-2">
@@ -95,7 +95,7 @@
             </div>
             <div class="card-body">
                 <?php 
-                $data = mysqli_query($db,"select * from invoice where status=0");
+                $data = mysqli_query($db,"select * from invoice where status_payment=0");
                 if(mysqli_num_rows($data) > 0){ ?>
                 <div class="table-responsive">
                   <table class="table table-bordered" width="100%">

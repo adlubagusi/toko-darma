@@ -128,7 +128,7 @@
         <!-- Divider -->
         <hr class="sidebar-divider" />
 
-        <?php $orders = mysqli_num_rows(mysqli_query($db,"select * from invoice where status=0")); ?>
+        <?php $orders = mysqli_num_rows(mysqli_query($db,"select * from invoice where status_payment=0")); ?>
         <li class="nav-item">
           <a class="nav-link" href="?page=orders">
             <i class="fas fa-fw fa-shopping-cart"></i>
