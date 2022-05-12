@@ -11,9 +11,20 @@
 	}
 </script>
 <?php
+if(isset($_POST['kirim_pesanan'])){
+    $cInvoice  = $_GET['invoice'];
+    $cNoResi   = $_POST['cNoResi'];
+    $cExpedisi = $_POST['cExpedisi'];
+    mysqli_query($db,"update invoice set no_resi='$cNoResi',expedisi='$cExpedisi',status_delivery='2' where invoice_code='$cInvoice'");
+    echo "<script>alert('Pesanan Sudah Dikirim');</script>";
+    echo "<script>window.location.href = 'admin.php?page=orders';</script>";
+}
 if(isset($_GET['opt'])){
     if($_GET['opt'] == "proses"){
-
+        $cInvoice = $_GET['invoice'];
+        mysqli_query($db,"update invoice set status_payment='1',status_delivery='1' where invoice_code='$cInvoice'");
+        echo "<script>alert('Data Disimpan');</script>";
+        echo "<script>window.location.href = 'admin.php?page=orders';</script>";
     }
 }
 
@@ -29,7 +40,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
 <div class="container-fluid">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800 mb-2">Code/Invoice = <?= $vaInvoice['invoice_code']; ?></h1>
-    <?php if($vaInvoice['status_payment'] == 1){ ?>
+    <?php if($vaInvoice['status_payment'] == 1 && $vaInvoice['status_delivery'] == 3){ ?>
         <h3 class="text-success">Transaksi selesai</h3>
     <?php } ?>
 
@@ -40,7 +51,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
             <!-- <a href="administrator/print_detail_order/<?= $vaInvoice['invoice_code']; ?>" class="btn btn-info btn-sm float-right">Print</a> -->
 		</div>
 		<div class="card-body">
-            <h3 class="lead"> Data Alamat</h3>
+            <h3 class="lead"> Data Pesanan</h3>
             <hr>
             <div class="row">
                 <div class="col-md-6">
@@ -65,6 +76,57 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <td>Alamat Lengkap</td>
                             <td><?= $vaInvoice['address']; ?></td>
                         </tr>
+                        <tr>
+                            <td>Status Pembayaran</td>
+                            <?php if($vaInvoice['status_payment'] == 1){ ?>
+                                <td><span class="badge badge-success">Lunas</span></td>
+                            <?php
+                                }else{ 
+                                    if($vaInvoice['bukti_transfer'] <> ""){
+                            ?>
+								<td><span class="badge badge-warning">Menunggu Konfirmasi Admin</span></td>
+                            <?php
+                                    }else{
+                            ?>
+								<td><span class="badge badge-danger">Menunggu Pembayaran</span></td>
+                            <?php
+                                    }
+                                } 
+                            ?>
+                        </tr>
+                        <tr>
+                            <td>Status Pengiriman</td>
+                            <?php 
+                                if($vaInvoice['status_delivery'] == 3){
+                            ?>
+                                <td><span class="badge badge-success">Pesanan Diterima</span></td>
+                            <?php
+                                }else if($vaInvoice['status_delivery'] == 2){ 
+                            ?>
+                                <td><span class="badge badge-info">Dikirim</span></td>
+                            <?php
+                                }else if($vaInvoice['status_delivery'] == 1){
+                            ?>
+                                <td><span class="badge badge-warning">Dikemas</span></td>
+                            <?php        
+                                }else{ ?>
+                                <td><span class="badge badge-danger">Belum Dikirim</span></td>
+                            <?php } ?>
+                        </tr>
+                        <?php
+                            if($vaInvoice['status_delivery'] >= 2){
+                        ?>
+                        <tr>
+                            <td>No. Resi</td>
+                            <td><?=$vaInvoice['no_resi']?></td>
+                        </tr>
+                        <tr>
+                            <td>Expedisi</td>
+                            <td><?=$vaInvoice['expedisi']?></td>
+                        </tr>
+                        <?php       
+                            }
+                        ?>
                     </table>
                 </div>
             </div>
@@ -134,18 +196,86 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
             <hr>
             <?php if($vaInvoice['status_payment'] == 0){ ?>
                 <a href="?page=orders&opt=proses&invoice=<?= $vaInvoice['invoice_code']; ?>" onclick="return confirm('Anda sudah menerima pembayaran dan akan memproses pesanan?');" class="btn btn-info btn-sm">Proses</a>
+            <?php }else if($vaInvoice['status_payment'] == 1 && $vaInvoice['status_delivery'] == 1){?>
+                <a
+                    href="#"
+                    class="btn btn-primary btn-sm"
+                    data-toggle="modal"
+                    data-target="#kirimPesanan"
+                    >Kirim Pesanan</a
+                >
             <?php } ?>
         </div>
     </div>
 </div>
 <!-- /.container-fluid -->
+<!-- Modal Kirim Pesanan -->
+<div
+	class="modal fade"
+	id="kirimPesanan"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="exampleModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Anda Akan Mengirimkan Pesanan?</h5>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="modal"
+					aria-label="Close"
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form
+					action=""
+					method="post"
+				>
+					<div class="form-group">
+						<label for="name">No. Resi</label>
+						<input
+							type="text"
+							class="form-control"
+							id="cNoResi"
+							name="cNoResi"
+							autocomplete="off"
+							required
+						/>
+					</div>
+                    <div class="form-group">
+						<label for="name">Expedisi</label>
+						<input
+							type="text"
+							class="form-control"
+							id="cExpedisi"
+							name="cExpedisi"
+							autocomplete="off"
+							required
+						/>
+					</div>
+					<button type="submit" name="kirim_pesanan" class="btn btn-success">
+					Submit
+					</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+					Batal
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <?php
 }else{
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800 mb-4">Order Data</h1>
+	<h1 class="h3 mb-2 text-gray-800 mb-4">Data Pesanan</h1>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
@@ -188,7 +318,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <td>Rp <?= number2String($data['total_all']); ?></td>
                             <td><?= $data['date_input']; ?></td>							
                             <?php if($data['status_payment'] == 1){ ?>
-								<td>Lunas</td>
+								<td><span class="badge badge-success">Lunas</span></td>
 							<?php
                                 }else{ 
                                     if($data['bukti_transfer'] <> ""){
@@ -202,8 +332,14 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                                     }
                                 } 
                             ?>
-                            <?php if($data['status_delivery'] == 2){ ?>
-                                <td><span class="badge badge-success">Dikirim</span></td>
+                            <?php 
+                                if($data['status_delivery'] == 3){ 
+                            ?>
+                                <td><span class="badge badge-success">Pesanan Diterima</span></td>
+                            <?php 
+                                }elseif($data['status_delivery'] == 2){ 
+                            ?>
+                                <td><span class="badge badge-info">Dikirim</span></td>
                             <?php
                                 }else if($data['status_delivery'] == 1){
                             ?>

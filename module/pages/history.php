@@ -14,6 +14,11 @@ if(isset($_GET['action'])){
                 echo "<script>alert('Gagal');</script>";
             }
         }
+    }else if($_GET['action'] == "terima_pesanan"){
+        $cInvoice = $_GET['invoice'];
+        mysqli_query($db,"update invoice set status_delivery='3' where invoice_code='$cInvoice'");
+        echo "<script>alert('Pesanan Sudah Diterima');</script>";
+        echo "<script>window.location.href = 'index.php?page=history';</script>";
     }
 }
 
@@ -31,10 +36,13 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
 		<div class="card-header py-3">
             <a href="?page=history" class="btn btn-sm btn-primary"><i class="fa fa-chevron-left"></i> Back</a>
             <h1 class="h3 mb-2 text-gray-800 mb-2" style="float:right">Code/Invoice = <?= $vaInvoice['invoice_code']; ?></h1>
+            <?php if($vaInvoice['status_payment'] == 1 && $vaInvoice['status_delivery'] == 3){ ?>
+                <h3 class="text-success">Transaksi selesai</h3>
+            <?php } ?>
             <!-- <a href="administrator/print_detail_order/<?= $vaInvoice['invoice_code']; ?>" class="btn btn-info btn-sm float-right">Print</a> -->
 		</div>
 		<div class="card-body">
-            <h3 class="lead"> Data Alamat</h3>
+            <h3 class="lead"> Data Pesanan</h3>
             <hr>
             <div class="row">
                 <div class="col-md-6">
@@ -79,8 +87,14 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                         </tr>
                         <tr>
                             <td>Status Pengiriman</td>
-                            <?php if($vaInvoice['status_delivery'] == 2){ ?>
-                                <td><span class="badge badge-success">Dikirim</span></td>
+                            <?php 
+                                if($vaInvoice['status_delivery'] == 3){
+                            ?>
+                                <td><span class="badge badge-success">Pesanan Diterima</span></td>
+                            <?php
+                                }else if($vaInvoice['status_delivery'] == 2){ 
+                            ?>
+                                <td><span class="badge badge-info">Dikirim</span></td>
                             <?php
                                 }else if($vaInvoice['status_delivery'] == 1){
                             ?>
@@ -90,21 +104,51 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                                 <td><span class="badge badge-danger">Belum Dikirim</span></td>
                             <?php } ?>
                         </tr>
+                        <?php
+                            if($vaInvoice['status_delivery'] >= 2){
+                        ?>
+                        <tr>
+                            <td>No. Resi</td>
+                            <td><?=$vaInvoice['no_resi']?></td>
+                        </tr>
+                        <tr>
+                            <td>Expedisi</td>
+                            <td><?=$vaInvoice['expedisi']?></td>
+                        </tr>
+                        <?php       
+                            }
+                        ?>
                     </table>
                 </div>
             </div>
             <hr>
             <?php
+            $cTextBukti = "Upload";
+            if(is_file("assets/bukti_transfer/".$vaInvoice['bukti_transfer'])){
+                $cTextBukti = "Ganti";
+            ?>
+            <div class="form-group mx-sm-3 mb-2">
+                <label> Lihat Bukti Transfer <a href="assets/bukti_transfer/<?=$vaInvoice['bukti_transfer']?>" target="_blank"  class="btn btn-sm btn-info"><i class="fa fa-search"></i></a> </label>
+            </div>
+            <?php    
+            }
             if(!$vaInvoice['status_payment']){
             ?>
             <form class="form-inline" action="?page=history&action=upload_file" method="post" enctype="multipart/form-data">
                 <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputPassword2" class="">Upload Bukti Transfer&nbsp;</label>
+                    <label for="inputPassword2" class=""><?=$cTextBukti?> Bukti Transfer&nbsp;</label>
                     <input type="file" class="form-control" name="cBuktiTransfer">
                     <input type="hidden" name="cInvoice" value="<?= $vaInvoice['invoice_code'];?>">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Submit</button>
             </form>
+            <?php
+            }else if($vaInvoice['status_delivery'] == 2){
+            ?>
+            <a class="btn btn-outline-success" href="index.php?page=history&action=terima_pesanan&invoice=<?=$_GET['invoice']?>" onclick="return confirm('Anda yakin sudah menerima pesanan?');">
+                <i class="fa fa-check"></i>
+                Pesanan Sudah Diterima
+            </a>  
             <?php
             }
             ?>
@@ -138,7 +182,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                     <?php $total = $data['price'] * $data['qty']; ?>
                     <td>Rp <?= number2String($total); ?></td>
                     <td>
-                        <a href="index.php?p=<?= $data['link']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                        <a href="index.php?p=<?= $data['link']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-search"></i></a>
                     </td>
                 <tr>
                 <?php 
@@ -218,20 +262,36 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                                     <td>Rp <?= number2String($data['total_all']); ?></td>
                                     <td><?= $data['date_input']; ?></td>							
                                     <?php if($data['status_payment'] == 1){ ?>
-                                        <td>Lunas</td>
+                                        <td><span class="badge badge-success">Lunas</span></td>
                                     <?php
-                                        }else{ ?>
-                                        <td>Belum Lunas</td>
-                                    <?php } ?>
-                                    <?php if($data['status_delivery'] == 2){ ?>
-                                        <td>Dikirim</td>
+                                        }else{ 
+                                            if($data['bukti_transfer'] <> ""){
+                                    ?>
+                                        <td><span class="badge badge-warning">Menunggu Konfirmasi<br>Admin</span></td>
+                                    <?php
+                                            }else{
+                                    ?>
+                                        <td><span class="badge badge-danger">Menunggu Pembayaran</span></td>
+                                    <?php
+                                            }
+                                        } 
+                                    ?>
+                                    
+                                    <?php 
+                                        if($data['status_delivery'] == 3){
+                                    ?>
+                                        <td><span class="badge badge-success">Pesanan Diterima</span></td>
+                                    <?php
+                                        }else if($data['status_delivery'] == 2){ 
+                                    ?>
+                                        <td><span class="badge badge-info">Dikirim</span></td>
                                     <?php
                                         }else if($data['status_delivery'] == 1){
                                     ?>
-                                        <td>Dikemas</td>
+                                        <td><span class="badge badge-warning">Dikemas</span></td>
                                     <?php        
                                         }else{ ?>
-                                        <td>Belum Diproses</td>
+                                        <td><span class="badge badge-danger">Belum Diproses</span></td>
                                     <?php } ?>
                                     <td>
                                         <a href="?page=history&invoice=<?= $data['invoice_code']; ?>" class="btn btn-sm btn-info"><i class="fa fa-search"></i></a>
