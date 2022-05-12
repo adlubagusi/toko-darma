@@ -52,9 +52,6 @@
                 <div class="card-body">
                     <div class="list-group">
                         <a href="?page=settings&opt=general" class="list-group-item list-group-item-action">Umum</a>
-                        <!-- <a href="?page=setting&opt=banner" class="list-group-item list-group-item-action">Banner Slider</a> -->
-                        <a href="?page=settings&opt=description" class="list-group-item list-group-item-action">Deskripsi</a>
-                        <!-- <a href="?page=settings&opt=sosmed" class="list-group-item list-group-item-action">Social media</a> -->
                         <a href="?page=settings&opt=address" class="list-group-item list-group-item-action">Alamat</a>
                         <a href="?page=settings&opt=delivery" class="list-group-item list-group-item-action">Area Pengiriman</a>
                     </div>
@@ -64,79 +61,38 @@
         <?php
         if(!isset($_GET['opt']) ||$_GET['opt'] == "general"){
         ?>
-        <div class="col-lg-9">
-            <div class="card shadow">
-                <div class="card-body">
-                    <p class="lead">Logo</p>
-                    <img src="assets/images/logo/<?= $vaSettings['logo'] ?>" alt="logo" style="padding: 10px; background-color: <?= $vaGeneral['navbar_color']; ?>;" width="40%">
-                    <form action="?page=settings&opt=change_logo" method="post" enctype="multipart/form-data">
-                        <div class="form-group mt-2">
-                            <input type="file" name="cLogo" id="logo" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-success">Change Logo</button>    
-                    </form>
-                    <hr>
-                    <p class="lead">Favicon</p>
-                    <img src="assets/images/logo/<?= $vaSettings['favicon'] ?>" alt="favicon" width="70px">
-                    <form action="?page=settings&opt=change_favicon" method="post" enctype="multipart/form-data">
-                        <div class="form-group mt-2">
-                            <input type="file" name="cLogo" id="logo" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-success">Change Favicon</button>    
-                    </form>
-                    <div class="col-md-9">
-                </div>
-            </div>
-        </div>
-        <div class="card shadow mt-3">
-            <div class="card-header">
-                <h2 class="lead text-dark mb-0">General</h2>
-            </div>
-                <div class="card-body">
-                    <form action="?page=settings" method="post">
-                        <div class="form-group">
-                            <label for="title">Website Name</label>
-                            <input type="text" autocomplete="off" name="cTitle" id="title" class="form-control" required value="<?= $vaGeneral['app_name']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="slogan">Website slogan</label>
-                            <input type="text" autocomplete="off" name="cSlogan" id="slogan" class="form-control" required value="<?= $vaGeneral['slogan']; ?>">
-                            <small class="text-muted">Will appear on the title home</small>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label for="color">Navigation Color</label>
-                            <input type="text" autocomplete="off" name="color" id="color" class="form-control" required value="<?= $vaGeneral['navbar_color']; ?>">
-                            <small class="text-muted">Use hex code. Example: #12283F</small>
-                        </div> -->
-                        <div class="form-group">
-                            <label for="whatsapp">WhatsApp</label>
-                            <input type="number" autocomplete="off" name="cWhatsapp" id="whatsapp" class="form-control" required value="<?= $vaGeneral['whatsapp']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="email_contact">Email Contact</label>
-                            <input type="text" autocomplete="off" name="cEmailContact" id="email_contact" class="form-control" required value="<?= $vaGeneral['email_contact']; ?>">
-                        </div>
-                        <button type="submit" name="change_general" class="btn btn-sm btn-success">Update</button>    
-                    </form>
-                </div>
-            </div>
-        </div>
-        <?php
-        }else if($_GET['opt'] == "description"){
-        ?>
         <div class="col-md-9">
             <div class="card shadow">
                 <div class="card-header">
-                    <h2 class="lead text-dark mb-0">Deskripsi Singkat</h2>
+                    <h2 class="lead text-dark mb-0">General</h2>
                 </div>
-                <div class="card-body">
-                    <!-- <p class="text-muted">This brief description is shown in the footer</p> -->
-                    <form action="?page=settings" method="post">
-                        <div class="form-group">
-                            <textarea name="cDesc" id="desc" class="form-control" rows="5"><?= $vaSettings['short_desc']; ?></textarea>
-                        </div>
-                        <button name="edit_description_setting" class="btn btn-sm btn-info">Edit Description</button>
-                    </form>
+                    <div class="card-body">
+                        <form action="?page=settings" method="post">
+                            <div class="form-group">
+                                <label for="title">Website Name</label>
+                                <input type="text" autocomplete="off" name="cTitle" id="title" class="form-control" required value="<?= $vaGeneral['app_name']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="slogan">Website slogan</label>
+                                <input type="text" autocomplete="off" name="cSlogan" id="slogan" class="form-control" required value="<?= $vaGeneral['slogan']; ?>">
+                                <small class="text-muted">Will appear on the title home</small>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="color">Navigation Color</label>
+                                <input type="text" autocomplete="off" name="color" id="color" class="form-control" required value="<?= $vaGeneral['navbar_color']; ?>">
+                                <small class="text-muted">Use hex code. Example: #12283F</small>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="whatsapp">WhatsApp</label>
+                                <input type="number" autocomplete="off" name="cWhatsapp" id="whatsapp" class="form-control" required value="<?= $vaGeneral['whatsapp']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="email_contact">Email Contact</label>
+                                <input type="text" autocomplete="off" name="cEmailContact" id="email_contact" class="form-control" required value="<?= $vaGeneral['email_contact']; ?>">
+                            </div>
+                            <button type="submit" name="change_general" class="btn btn-sm btn-success">Update</button>    
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
