@@ -19,6 +19,8 @@ if(isset($_POST['submitlogin'])){
             $_SESSION['level']    = $cLevel;
             if($cLevel == "admin"){
               header('location: admin.php?page=home');
+            }else if($cLevel == "pemilik"){
+              header('location: pemilik.php?page=home');
             }else{
               header('location: index.php?page=home');
             }

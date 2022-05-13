@@ -128,32 +128,10 @@
         <!-- Divider -->
         <hr class="sidebar-divider" />
 
-        <?php $orders = mysqli_num_rows(mysqli_query($db,"select * from invoice where status_payment=0")); ?>
         <li class="nav-item">
-          <a class="nav-link" href="?page=orders">
-            <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Pesanan</span> <small class="badge badge-warning"><?=$orders?> baru</small></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="?page=categories">
-            <i class="fas fa-fw fa-tag"></i>
-            <span>Kategori</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="?page=products">
-            <i class="fas fa-fw fa-box-open"></i>
-            <span>Produk</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="?page=settings">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Pengaturan</span></a
+          <a class="nav-link" href="?page=users">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span></a
           >
         </li>
 
