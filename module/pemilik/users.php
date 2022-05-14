@@ -45,7 +45,7 @@ if(!isset($_GET['opt'])){
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800 mb-4">Data Kategori</h1>
+	<h1 class="h3 mb-2 text-gray-800 mb-4">Data User</h1>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
@@ -93,7 +93,7 @@ if(!isset($_GET['opt'])){
                             <td><?= $dbRow['email']; ?></td>
                             <td>
                                 <a href="?page=users&opt=edit&id=<?= $dbRow['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-pen"></i></a>
-                                <a href="?page=users&opt=delete&id=<?= $dbRow['id']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus kategori ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
+                                <a href="?page=users&opt=delete&id=<?= $dbRow['id']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus user ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <?php $no++ ?>

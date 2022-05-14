@@ -134,6 +134,19 @@
             <span>Users</span></a
           >
         </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Laporan</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+              <a class="collapse-item" href="?page=order_proccess">Pesanan Diproses</a>
+              <a class="collapse-item" href="?page=order_send">Pesanan Dikirim</a>
+            </div>
+          </div>
+        </li>
 
         <br />
 
