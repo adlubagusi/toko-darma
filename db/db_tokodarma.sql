@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2022 at 06:47 PM
+-- Generation Time: May 30, 2022 at 03:16 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -205,7 +205,9 @@ CREATE TABLE `invoice` (
 INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status_payment`, `status_delivery`, `bukti_transfer`, `no_resi`, `expedisi`) VALUES
 (176, '623966', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 1, 3, '1652373380894', '10987654321', 'SICEPAT'),
 (177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, '', '', ''),
-(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 1, 3, '1652288215039', '1234567890', 'JNE');
+(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 1, 3, '1652288215039', '1234567890', 'JNE'),
+(179, '321699', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '15000', 192000, 207000, '2022-05-14 06:08:41', 1, 3, '1652501670768', '030000414567', 'TIKI'),
+(180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 1, '1652503158751', '', '');
 
 -- --------------------------------------------------------
 
@@ -253,7 +255,6 @@ CREATE TABLE `products` (
   `publish` int(11) NOT NULL,
   `link` varchar(100) NOT NULL,
   `transaction` int(11) NOT NULL,
-  `promo_price` varchar(30) NOT NULL,
   `viewer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -261,11 +262,11 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `promo_price`, `viewer`) VALUES
-(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, '100,000.00', 3),
-(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, '', 0),
-(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 0, '', 0),
-(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 0, '', 0);
+INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `viewer`) VALUES
+(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, 3),
+(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 2, 0),
+(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 1, 0),
+(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -287,7 +288,8 @@ INSERT INTO `region` (`id`, `region`, `price`) VALUES
 (9, 'Denpasar Utara', 5000),
 (10, 'Badung', 7500),
 (11, 'Gianyar', 10000),
-(12, 'Tabanan', 8000);
+(12, 'Tabanan', 8000),
+(13, 'Tangerang Kota', 15000);
 
 -- --------------------------------------------------------
 
@@ -374,7 +376,9 @@ INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `
 (229, 507119, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', ''),
 (230, 507119, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
 (231, 435671, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
-(232, 435671, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43');
+(232, 435671, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43'),
+(233, 321699, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', 192000, 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', ''),
+(234, 21804, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 10, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', '');
 
 -- --------------------------------------------------------
 
@@ -390,7 +394,7 @@ CREATE TABLE `users` (
   `telp` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `level` enum('admin','user','','') NOT NULL
+  `level` enum('admin','user','pemilik') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -399,8 +403,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `address`, `poscode`, `telp`, `email`, `password`, `level`) VALUES
 (1, 'Qwerty Uiop', 'Jl. Jalan sama kamu no 1', '65152', '081234567890', 'user@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
-(2, 'Administrator', '', '', '', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
-(3, 'Bagus', 'Jl. Jalan No. 123', '65150', '085', 'user2@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user');
+(2, 'Administrator', 'Jl. Gatot Subroto VI F', '', '081234567890', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
+(3, 'Bagus', 'Jl. Jalan No. 123', '65150', '085', 'user2@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
+(4, 'Pemilik', 'Jl. Gatot Subroto VI F', '', '089123098345', 'pemilik@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'pemilik'),
+(8, 'Admin2', 'Jl. Test 1', '65123', '083222223', 'admin2@gmail.com', '040b7cf4a55014e185813e0644502ea9', 'admin'),
+(9, 'Mister Potato Chips', 'Tangerang, Indonesia', '15136', '082321654789', 'me@potatochips.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user');
 
 --
 -- Indexes for dumped tables
@@ -540,7 +547,7 @@ ALTER TABLE `img_product`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -558,7 +565,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -582,13 +589,13 @@ ALTER TABLE `testimonial`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
