@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2022 at 03:16 PM
+-- Generation Time: Jun 02, 2022 at 02:19 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -207,7 +207,8 @@ INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, 
 (177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, '', '', ''),
 (178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 1, 3, '1652288215039', '1234567890', 'JNE'),
 (179, '321699', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '15000', 192000, 207000, '2022-05-14 06:08:41', 1, 3, '1652501670768', '030000414567', 'TIKI'),
-(180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 1, '1652503158751', '', '');
+(180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 3, '1652503158751', 'QWE12344321', 'JNE'),
+(181, '177183', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. jalan no 890', '15000', 101499, 116499, '2022-06-01 09:22:57', 1, 3, '1654068240620', 'ASD0987654321', 'J&T');
 
 -- --------------------------------------------------------
 
@@ -267,6 +268,34 @@ INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `
 (43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 2, 0),
 (44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 1, 0),
 (45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating`
+--
+
+CREATE TABLE `rating` (
+  `ID` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `status` varchar(2) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_invoice` int(11) NOT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`ID`, `nama`, `email`, `deskripsi`, `status`, `rating`, `id_product`, `id_invoice`, `parent`, `datetime`) VALUES
+(58, 'Mister Potato Chips', 'me@potatochips.com', 'barang bagus', '1', 5, 43, 177183, NULL, '2022-06-01 10:36:19'),
+(59, 'Mister Potato Chips', 'me@potatochips.com', 'gaenak', '1', 2, 45, 177183, NULL, '2022-06-01 10:36:19'),
+(60, 'Mister Potato Chips', 'me@potatochips.com', 'kopi nikmat', '1', 5, 45, 21804, NULL, '2022-06-01 10:39:31');
 
 -- --------------------------------------------------------
 
@@ -378,7 +407,9 @@ INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `
 (231, 435671, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
 (232, 435671, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43'),
 (233, 321699, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', 192000, 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', ''),
-(234, 21804, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 10, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', '');
+(234, 21804, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 10, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', ''),
+(235, 177183, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 'test'),
+(236, 177183, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', '');
 
 -- --------------------------------------------------------
 
@@ -468,6 +499,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `region`
 --
 ALTER TABLE `region`
@@ -547,7 +584,7 @@ ALTER TABLE `img_product`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -560,6 +597,12 @@ ALTER TABLE `pages`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `region`
@@ -589,7 +632,7 @@ ALTER TABLE `testimonial`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
 
 --
 -- AUTO_INCREMENT for table `users`

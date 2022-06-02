@@ -5,6 +5,12 @@ $dbData = mysqli_query($db,"select p.*,p.id AS productId, p.link AS linkP,c.name
                         left join categories c on p.category=c.id 
                         where p.link='$cLink' group by p.id desc");
 $vaProduct  = mysqli_fetch_array($dbData);
+
+$vaRating = array();
+$dbRating = mysqli_query($db,"select * from rating where id_product='{$vaProduct['productId']}'");
+while($dbRow = mysqli_fetch_array($dbRating)){
+    $vaRating[] = $dbRow;
+}
 ?>
 <div class="wrapper">
     <div class="navigation">
@@ -92,8 +98,81 @@ $vaProduct  = mysqli_fetch_array($dbData);
         </div>
     </div>
     <hr>
-    <div class="description">
-        <?= nl2br($vaProduct['description']); ?>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="deskripsi-tab" data-toggle="tab" href="#deskripsi" role="tab" aria-controls="deskripsi" aria-selected="true">Deskripsi</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="komentar-tab" data-toggle="tab" href="#komentar" role="tab" aria-controls="komentar" aria-selected="false">Komentar</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="deskripsi" role="tabpanel" aria-labelledby="deskripsi-tab">
+            <div class="description">
+                <?= nl2br($vaProduct['description']); ?>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="komentar" role="tabpanel" aria-labelledby="komentar-tab">
+            <div class="comments-area">
+                <h4><?=count($vaRating)?> Comments</h4>
+                <?php
+                // echo "<pre>";
+                // print_r($vaRating);
+                foreach($vaRating as $key=>$value){
+                ?>
+                <div class="comment-list">
+                    <div class="single-comment justify-content-between d-flex" style="border-bottom: 1px solid #eee;">
+                        <div class="user justify-content-between d-flex">
+                            <div class="thumb" style="width: 40px;height: 50px;;">
+                                <img src="assets/images/user.png" alt="" style="width: 100%;height: 100%;">
+                            </div>
+                            <div class="desc">
+                                <div class="side-left">
+                                    <h5><a href="#"><?=$value['nama']?></a></h5>
+                                    <p class="date"><?=$value['datetime']?> </p>
+                                </div>
+                                <div class="side-right">
+                                    <p class="comment">
+                                        <fieldset class="rating">
+                                            <?php
+                                                $checked1 = $value['rating'] == 1 ? "checked" : "";
+                                                $checked2 = $value['rating'] == 2 ? "checked" : "";
+                                                $checked3 = $value['rating'] == 3 ? "checked" : "";
+                                                $checked4 = $value['rating'] == 4 ? "checked" : "";
+                                                $checked5 = $value['rating'] == 5 ? "checked" : "";
+                                            ?>
+                                            <input id="demo-1<?=$key?>" type="radio" name="rating<?=$key?>" value="1" <?=$checked1?> disabled> 
+                                            <label for="demo-1<?=$key?>">1 star</label>
+                                            <input id="demo-2<?=$key?>" type="radio" name="rating<?=$key?>" value="2" <?=$checked2?> disabled>
+                                            <label for="demo-2<?=$key?>">2 stars</label>
+                                            <input id="demo-<?=$key?>3" type="radio" name="rating<?=$key?>" value="3" <?=$checked3?> disabled>
+                                            <label for="demo-3<?=$key?>">3 stars</label>
+                                            <input id="demo-4<?=$key?>" type="radio" name="rating<?=$key?>" value="4" <?=$checked4?> disabled>
+                                            <label for="demo-4<?=$key?>">4 stars</label>
+                                            <input id="demo-5<?=$key?>" type="radio" name="rating<?=$key?>" value="5" <?=$checked5?> disabled>
+                                            <label for="demo-5<?=$key?>">5 stars</label>
+                                            
+                                            <div class="stars">
+                                                <label for="demo-1<?=$key?>" aria-label="1 star" title="1 star"></label>
+                                                <label for="demo-2<?=$key?>" aria-label="2 stars" title="2 stars"></label>
+                                                <label for="demo-3<?=$key?>" aria-label="3 stars" title="3 stars"></label>
+                                                <label for="demo-4<?=$key?>" aria-label="4 stars" title="4 stars"></label>
+                                                <label for="demo-5<?=$key?>" aria-label="5 stars" title="5 stars"></label>   
+                                            </div>
+                                            
+                                        </fieldset>
+                                        <?php echo $value['deskripsi'];?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
     </div>
     <hr>
 </div>
