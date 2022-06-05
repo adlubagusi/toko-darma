@@ -103,7 +103,7 @@ while($dbRow = mysqli_fetch_array($dbRating)){
             <a class="nav-link active" id="deskripsi-tab" data-toggle="tab" href="#deskripsi" role="tab" aria-controls="deskripsi" aria-selected="true">Deskripsi</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="komentar-tab" data-toggle="tab" href="#komentar" role="tab" aria-controls="komentar" aria-selected="false">Komentar</a>
+            <a class="nav-link" id="komentar-tab" data-toggle="tab" href="#komentar" role="tab" aria-controls="komentar" aria-selected="false">Review</a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -114,7 +114,7 @@ while($dbRow = mysqli_fetch_array($dbRating)){
         </div>
         <div class="tab-pane fade" id="komentar" role="tabpanel" aria-labelledby="komentar-tab">
             <div class="comments-area">
-                <h4><?=count($vaRating)?> Comments</h4>
+                <h4><?=count($vaRating)?> Review</h4>
                 <?php
                 // echo "<pre>";
                 // print_r($vaRating);
@@ -134,32 +134,21 @@ while($dbRow = mysqli_fetch_array($dbRating)){
                                 <div class="side-right">
                                     <p class="comment">
                                         <fieldset class="rating">
-                                            <?php
-                                                $checked1 = $value['rating'] == 1 ? "checked" : "";
-                                                $checked2 = $value['rating'] == 2 ? "checked" : "";
-                                                $checked3 = $value['rating'] == 3 ? "checked" : "";
-                                                $checked4 = $value['rating'] == 4 ? "checked" : "";
-                                                $checked5 = $value['rating'] == 5 ? "checked" : "";
-                                            ?>
-                                            <input id="demo-1<?=$key?>" type="radio" name="rating<?=$key?>" value="1" <?=$checked1?> disabled> 
-                                            <label for="demo-1<?=$key?>">1 star</label>
-                                            <input id="demo-2<?=$key?>" type="radio" name="rating<?=$key?>" value="2" <?=$checked2?> disabled>
-                                            <label for="demo-2<?=$key?>">2 stars</label>
-                                            <input id="demo-<?=$key?>3" type="radio" name="rating<?=$key?>" value="3" <?=$checked3?> disabled>
-                                            <label for="demo-3<?=$key?>">3 stars</label>
-                                            <input id="demo-4<?=$key?>" type="radio" name="rating<?=$key?>" value="4" <?=$checked4?> disabled>
-                                            <label for="demo-4<?=$key?>">4 stars</label>
-                                            <input id="demo-5<?=$key?>" type="radio" name="rating<?=$key?>" value="5" <?=$checked5?> disabled>
-                                            <label for="demo-5<?=$key?>">5 stars</label>
-                                            
-                                            <div class="stars">
-                                                <label for="demo-1<?=$key?>" aria-label="1 star" title="1 star"></label>
-                                                <label for="demo-2<?=$key?>" aria-label="2 stars" title="2 stars"></label>
-                                                <label for="demo-3<?=$key?>" aria-label="3 stars" title="3 stars"></label>
-                                                <label for="demo-4<?=$key?>" aria-label="4 stars" title="4 stars"></label>
-                                                <label for="demo-5<?=$key?>" aria-label="5 stars" title="5 stars"></label>   
-                                            </div>
-                                            
+                                            <span id="stars<?=$value['ID']?>">
+                                                <script>
+                                                    function getStars(id,rating) {
+                                                        rating = Math.round(rating * 2) / 2;
+                                                        let output = [];
+                                                        for (var i = rating; i >= 1; i--)
+                                                        output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                                                        if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                                                        for (let i = (5 - rating); i >= 1; i--)
+                                                        output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                                                        document.getElementById("stars"+id).innerHTML = output.join('');
+                                                    }
+                                                    getStars('<?=$value['ID']?>','<?=$value['rating']?>');
+                                                </script>
+                                            </span>
                                         </fieldset>
                                         <?php echo $value['deskripsi'];?>
                                     </p>
@@ -303,5 +292,7 @@ while($dbRow = mysqli_fetch_array($dbRating)){
             })
         }
     })
+
+    
 
 </script>

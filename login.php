@@ -16,6 +16,7 @@ if(isset($_POST['submitlogin'])){
             $_SESSION['name']     = $dbRow['name'];
             $_SESSION['telp']     = $dbRow['telp'];
             $_SESSION['address']  = $dbRow['address'];
+            $_SESSION['poscode']  = $dbRow['poscode'];
             $_SESSION['level']    = $cLevel;
             if($cLevel == "admin"){
               header('location: admin.php?page=home');
