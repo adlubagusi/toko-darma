@@ -340,6 +340,13 @@ div.wrapper div.description img {
 	}
 }
 
+.rating{
+	font-size: 20px;
+}
+
+.rating .fa-star-o{
+	font-size: 17.5px;
+}
 
 .rating input[type="radio"]:not(:nth-of-type(0)) {
 	/* hide visually */    
