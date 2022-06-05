@@ -53,7 +53,7 @@ if(isset($_GET['action'])){
         echo json_encode($vaArray);
         exit;
     }else if($_GET['action'] == "penilaian"){
-        $cInvoice = $_POST['id_invoice'] ;;
+        $cInvoice = $_POST['id_invoice'] ;
         $vaArray = array();
         foreach($_POST['rating'] as $key=>$value){
             $vaArray[$key]['rating'] = $value;
@@ -490,7 +490,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
             async:false,
             success: function(res){
                 alert(res);
-                // window.location.href = 'index.php?page=history';
+                window.location.href = 'index.php?page=history';
             }   
         });
     })
