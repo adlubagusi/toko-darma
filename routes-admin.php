@@ -12,5 +12,7 @@ if(isset($_GET['page'])){
         $page = "module/admin/products.php";
     }else if($url == "settings"){
         $page = "module/admin/settings.php";
+    }else if($url == "profile"){
+        $page = "module/admin/profile.php";
     }
 }

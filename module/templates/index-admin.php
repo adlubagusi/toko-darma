@@ -226,7 +226,7 @@
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown"
                 >
-                  <a class="dropdown-item" href="?page=adm_edit">
+                  <a class="dropdown-item" href="?page=profile">
                     <i
                       class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"
                     ></i>
