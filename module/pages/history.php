@@ -229,6 +229,11 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                 <i class="fa fa-check"></i>
                 Pesanan Sudah Diterima
             </a>  
+            <!-- <a class="btn btn-danger" href="index.php?page=history&action=refund&invoice=<?=$_GET['invoice']?>" onclick="return confirm('Anda akan mengajuan pengembalian?');"> -->
+            <a class="btn btn-danger" href="index.php?page=refund&invoice=<?=$_GET['invoice']?>"> 
+                <i class="fa fa-box"></i>
+                Ajukan Pengembalian
+            </a>  
             <?php
             }
             ?>
