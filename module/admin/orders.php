@@ -23,7 +23,12 @@ if(isset($_GET['opt'])){
     if($_GET['opt'] == "proses"){
         $cInvoice = $_GET['invoice'];
         mysqli_query($db,"update invoice set status_payment='1',status_delivery='1' where invoice_code='$cInvoice'");
-        echo "<script>alert('Data Disimpan');</script>";
+        echo "<script>alert('Data Berhasil Disimpan');</script>";
+        echo "<script>window.location.href = 'admin.php?page=orders';</script>";
+    }else if($_GET['opt'] == "refund"){
+        $cInvoice = $_GET['invoice'];
+        mysqli_query($db,"update invoice set status_refund='2' where invoice_code='$cInvoice'");
+        echo "<script>alert('Data Berhasil Disimpan');</script>";
         echo "<script>window.location.href = 'admin.php?page=orders';</script>";
     }
 }
@@ -96,7 +101,18 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                         </tr>
                         <tr>
                             <td>Status Pengiriman</td>
-                            <?php 
+                            <?php
+                            if($vaInvoice['status_refund'] > 0){
+                                if($vaInvoice['status_refund'] == 1){
+                            ?>
+                                <td><span class="badge badge-warning">Barang Dikembalikan</span></td>
+                            <?php
+                                }else{
+                            ?>
+                                <td><span class="badge badge-success">Refund</span></td>
+                            <?php
+                                }
+                            }else{
                                 if($vaInvoice['status_delivery'] == 3){
                             ?>
                                 <td><span class="badge badge-success">Pesanan Diterima</span></td>
@@ -111,7 +127,10 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <?php        
                                 }else{ ?>
                                 <td><span class="badge badge-danger">Belum Dikirim</span></td>
-                            <?php } ?>
+                            <?php 
+                                }
+                            }
+                            ?>
                         </tr>
                         <?php
                             if($vaInvoice['status_delivery'] >= 2){
@@ -196,7 +215,7 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
             <hr>
             <?php if($vaInvoice['status_payment'] == 0){ ?>
                 <a href="?page=orders&opt=proses&invoice=<?= $vaInvoice['invoice_code']; ?>" onclick="return confirm('Anda sudah menerima pembayaran dan akan memproses pesanan?');" class="btn btn-info btn-sm">Proses</a>
-            <?php }else if($vaInvoice['status_payment'] == 1 && $vaInvoice['status_delivery'] == 1){?>
+            <?php }else if($vaInvoice['status_payment'] == 1 && $vaInvoice['status_delivery'] == 1){ ?>
                 <a
                     href="#"
                     class="btn btn-primary btn-sm"
@@ -204,6 +223,8 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                     data-target="#kirimPesanan"
                     >Kirim Pesanan</a
                 >
+            <?php }else if($vaInvoice['status_refund'] > 0){ ?>
+                <a href="?page=orders&opt=refund&invoice=<?= $vaInvoice['invoice_code']; ?>" onclick="return confirm('Anda sudah menerima barang dan sudah mengembalikan dana?');" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Barang Sudah Diterima</a>
             <?php } ?>
         </div>
     </div>
@@ -333,6 +354,17 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                                 } 
                             ?>
                             <?php 
+                            if($data['status_refund'] > 0){
+                                if($data['status_refund'] == 1){
+                            ?>
+                                <td><span class="badge badge-warning">Barang Dikembalikan</span></td>
+                            <?php
+                                }else{
+                            ?>
+                                <td><span class="badge badge-success">Refund</span></td>
+                            <?php
+                                }
+                            }else{
                                 if($data['status_delivery'] == 3){ 
                             ?>
                                 <td><span class="badge badge-success">Pesanan Diterima</span></td>
@@ -347,7 +379,10 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <?php        
                                 }else{ ?>
                                 <td><span class="badge badge-danger">Belum Dikirim</span></td>
-                            <?php } ?>
+                            <?php 
+                                } 
+                            }
+                            ?>
                             <td>
                                 <a href="?page=orders&invoice=<?= $data['invoice_code']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                             </td>
