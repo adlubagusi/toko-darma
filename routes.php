@@ -36,7 +36,7 @@ if(isset($_GET['page'])){
         $page = "module/pages/profile.php";
         $css = 'page.css';
         $responsive = '';
-    }   
+    }
 }
 
 if(isset($_GET['p'])){
