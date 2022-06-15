@@ -8,13 +8,14 @@
 		$cStatus 	  	= $_POST['cStatus'];
 		$nWeight      	= $_POST['nWeight'];
 		$cDescription 	= $_POST['cDescription'];
+		$cRegion		= $_POST['cRegion'];
         $cLink			= textToLink($cTitle);
 		$cImg 		  	= round(microtime(true)*1000) ;//$_FILES['cImg'];
 		$cDir		  	= "./assets/images/product/".$cImg;
 		$dDate			= date("Y-m-d H:i:s");
 		if (move_uploaded_file($_FILES["cImg"]["tmp_name"], $cDir)) {
-			mysqli_query($db,"insert into products (title,price,stock,category,condit,weight,img,description,date_submit,publish,link) 
-						values ('$cTitle','$nPrice','$nStock','$cCategory','$cCondition','$nWeight','$cImg','$cDescription','$dDate','$cStatus','$cLink')");
+			mysqli_query($db,"insert into products (title,price,stock,category,condit,weight,img,description,date_submit,publish,link,region) 
+						values ('$cTitle','$nPrice','$nStock','$cCategory','$cCondition','$nWeight','$cImg','$cDescription','$dDate','$cStatus','$cLink','$cRegion')");
 			echo "<script>alert('Data Disimpan');</script>";
 			echo "<script>window.location.href = 'admin.php?page=products';</script>";
 		}else {
@@ -143,7 +144,7 @@ if(!isset($_GET['opt'])){
 							<?php while($dbRow = mysqli_fetch_array($dbData)){ ?>
 							<tr>
 								<td><?= $no ?></td>
-								<td><img style="width: 50px" src="assets/images/product/<?= $dbRow['productsImg']; ?>"><small><a href="?page=products&opt=add_img&id=<?= $dbRow['productsId']; ?>" target="_blank" class="btn-block mt-2">Other Image</a></small></td>
+								<td><img style="width: 50px" src="assets/images/product/<?= $dbRow['productsImg']; ?>"><small><a href="?page=products&opt=add_img&id=<?= $dbRow['productsId']; ?>" target="_blank" class="btn-block mt-2">Gambar Lainnya</a></small></td>
 								<td><?= $dbRow['productsTitle']; ?></td>
 								<td><?= $dbRow['productsPrice']; ?></td>
 								<td><?= $dbRow['productsStock']; ?></td>
@@ -306,6 +307,23 @@ if(!isset($_GET['opt'])){
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="region">Wilayah</label>
+							<input
+								type="text"
+								class="form-control"
+								id="region"
+								name="cRegion"
+								placeholder="contoh: Kota Denpasar"
+								autocomplete="off"
+                                required
+                                value=""
+							/>
+						</div>
+					</div>
+				</div>
 				<div class="form-group">
 					<label for="description">Deskripsi</label>
 					<textarea
@@ -451,7 +469,7 @@ if(!isset($_GET['opt'])){
 				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="img">Main Photo</label>
+							<label for="img">Foto Utama</label>
 							<input
 								type="file"
 								name="cNewImg"

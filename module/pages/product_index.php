@@ -95,7 +95,7 @@ h2.title.float-left {
         ?>
             <div class="col-md-3 product-item">
                 <a href="?p=<?= $dbRow['link']; ?>">
-                <div class="card" style="width:200px;">
+                <div class="card" style="width:200px;margin: 5px;">
                     <img src="assets/images/product/<?= $dbRow['img']; ?>" class="card-img-top" style="height: 190px; object-fit: cover;">
                     <div class="card-body" style="padding:10px;">
                         <p class="card-text line-3 mb-0"><?= $dbRow['title']; ?></p>
