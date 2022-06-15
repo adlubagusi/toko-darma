@@ -37,8 +37,14 @@ while($dbRow = mysqli_fetch_array($dbRating)){
             </div>
             <div class="ket">
                 <h1 class="title"><?= $vaProduct['title']; ?></h1>
-                <p class="subtitle">Terjual <?= $vaProduct['transaction']; ?> Produk &bull; <?= $vaProduct['viewer'] + 1; ?>x Dilihat</p>
+                <p class="subtitle">
+                    Terjual <?= $vaProduct['transaction']; ?> Produk &bull; <?= $vaProduct['viewer'] + 1; ?>x Dilihat<br>
+                    Dikirim dari <?= $vaProduct['region']?>
+                </p>
                 <hr>
+                <div class="alert alert-dismissible alert-success">
+                    Untuk cek ongkir, silahkan klik <a href="https://berdu.id/cek-ongkir" target="_blank" class="alert-link">disini</a>.
+                </div>
                 <table>
                     <tr>
                         <td class="t">Harga</td>
