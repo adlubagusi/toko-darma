@@ -144,6 +144,7 @@
               <!-- <h6 class="collapse-header">Custom Components:</h6> -->
               <a class="collapse-item" href="?page=order_proccess">Pesanan Diproses</a>
               <a class="collapse-item" href="?page=order_send">Pesanan Dikirim</a>
+              <a class="collapse-item" href="?page=best_products">Barang Terlaris</a>
             </div>
           </div>
         </li>
@@ -320,6 +321,32 @@ $("#showModalBodyAddPromo .input-money-hide").maskMoney();
 
 $('#modalInfoForDemoMode').modal('show');
 
+$("#btnPreview").on('click',function(){
+  var page     = "<?=$_GET['page']?>";
+  var tglawal  = $("#dTglAwal").val();
+  var tglakhir = $("#dTglAkhir").val();
+  window.location.href="?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir;
+})
+$("#btnPrint").on('click',function(){
+  var page       = "print_orders";
+  var tglawal    = $("#dTglAwal").val();
+  var tglakhir   = $("#dTglAkhir").val();
+  var titleorder = $("#cTitleOrder").val();
+  window.open(
+    "?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir+"&titleorder="+titleorder,
+    "_blank"
+  )
+})
+$("#btnPrintBestProduct").on('click',function(){
+  var page       = "print_best_products";
+  var tglawal    = $("#dTglAwal").val();
+  var tglakhir   = $("#dTglAkhir").val();
+  var titleorder = $("#cTitleOrder").val();
+  window.open(
+    "?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir+"&titleorder="+titleorder,
+    "_blank"
+  )
+})
 </script>
 
 </body>
