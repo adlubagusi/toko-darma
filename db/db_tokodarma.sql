@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2022 at 02:29 PM
+-- Generation Time: Jun 15, 2022 at 04:17 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -187,7 +187,10 @@ INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, 
 (179, '321699', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '15000', 192000, 207000, '2022-05-14 06:08:41', 1, 3, '1652501670768', '030000414567', 'TIKI', 0),
 (180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 3, '1652503158751', 'QWE12344321', 'JNE', 0),
 (181, '177183', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. jalan no 890', '15000', 101499, 116499, '2022-06-01 09:22:57', 1, 3, '1654068240620', 'ASD0987654321', 'J&T', 0),
-(182, '982456', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Jl. Gatot Subroto III', '5000', 192000, 197000, '2022-06-05 18:03:02', 1, 2, '1654445009995', 'JNE123456789', 'JNE', 1);
+(182, '982456', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Jl. Gatot Subroto III', '5000', 192000, 197000, '2022-06-05 18:03:02', 1, 2, '1654445009995', 'JNE123456789', 'JNE', 1),
+(183, '515961', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan Sama Kamu', '16000', 169900, 185900, '2022-06-15 14:51:55', 1, 1, '1655297535614', '', '', 0),
+(184, '403369', 'Qwerty Uiop', 'user@gmail.com', '081246319759', 9, 'Jl. Sunset Road No. 123', '5000', 89100, 94100, '2022-06-15 15:06:43', 1, 1, '1655298442292', '', '', 0),
+(185, '428335', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 11, 'test', '10000', 119000, 129000, '2022-06-15 15:40:28', 0, 0, '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -244,11 +247,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `viewer`, `region`) VALUES
-(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, 3, 'Kota Denpasar'),
-(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 2, 0, 'Kota Denpasar'),
-(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 1, 0, 'Kota Denpasar'),
-(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 0, 0, 'Kota Denpasar'),
-(46, 'MIYAKO Rice Cooker Mini Magic Com PSG 607 (0.6 Liter)', '169,900.00', 20, 10, 1, 2000, '1655295596672', '<p>Rice Cooker Serbaguna<br>&nbsp;---- TIDAK BISA UNTUK MENGHANGATKAN ------&nbsp;<br>*Motif batik dapat berubah disesuaikan keluaran terbaru pabrik*&nbsp;<br>Fungsi Utama :&nbsp;<br>- Memasak Nasi atau Mie&nbsp;<br>- Kapasitas Nasi 0,63 L&nbsp;<br>- Daya 300 Watt&nbsp;<br>- Tegangan 220 VAC-50 Hz&nbsp;<br>- Panci aluminium coating teflon ( anti lengket )&nbsp;</p><p>Dimensi produk : Diameter panci : 17cm ; Tinggi 10.5cm&nbsp;<br>Garansi : 1 Tahun Service&nbsp;</p><p>Multi Cooker&nbsp;<br>Nikmati multi fungsi untuk memasak nasi dan memasak mie. Multi cooker dengan fungsi yang terdapat di dalam 1 alat, Anda tidak perlu lagi harus repot menyiapkan banyak perangkat.&nbsp;</p><p>Hemat Listrik&nbsp;<br>Khawatir apabila perangkat dapur Anda akan mengunakan daya listrik yang besar? Miyako PSG-607 Multi Cooker hanya memerlukan daya listrik hanya sebesar 300 Watt untuk memasak.&nbsp;</p><p>Kapasitas 0.6 L Kapasitas penanak nasinya mampu menampung hingga 0.63L. Kapasitas ini membuat Anda dapat memasak untuk keluarga kecil tanpa kekurangan dan kesulitan. Multi cooker ini juga mampu memasak air dengan kapasitas 1.85 L. Multi cooker yang mini ini cocok digunakan di kos, kantor, kios / konter dan untuk bepergian.&nbsp;</p><p>Desain Minimalis&nbsp;<br>Dibuat dengan bodi plastik dan alumunium pan Spray, Miyako PSG-607 cocok diletakkan di mana saja. Multi cooker kecil ini memiliki bentuk bulat dengan warna putih dan bercorak batik yang cantik sehingga pas sebagai pendamping wadah di meja makan.</p>', '2022-06-15 14:19:56', 1, 'miyako-rice-cooker-mini-magic-com-psg-607-06-liter', 0, 0, 'Kota Denpasar');
+(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 2, 3, 'Kota Denpasar'),
+(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 5, 0, 'Kota Denpasar'),
+(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 3, 0, 'Kota Denpasar'),
+(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 3, 0, 'Kota Denpasar'),
+(46, 'MIYAKO Rice Cooker Mini Magic Com PSG 607 (0.6 Liter)', '169,900.00', 20, 10, 1, 2000, '1655295596672', '<p>Rice Cooker Serbaguna<br>&nbsp;---- TIDAK BISA UNTUK MENGHANGATKAN ------&nbsp;<br>*Motif batik dapat berubah disesuaikan keluaran terbaru pabrik*&nbsp;<br>Fungsi Utama :&nbsp;<br>- Memasak Nasi atau Mie&nbsp;<br>- Kapasitas Nasi 0,63 L&nbsp;<br>- Daya 300 Watt&nbsp;<br>- Tegangan 220 VAC-50 Hz&nbsp;<br>- Panci aluminium coating teflon ( anti lengket )&nbsp;</p><p>Dimensi produk : Diameter panci : 17cm ; Tinggi 10.5cm&nbsp;<br>Garansi : 1 Tahun Service&nbsp;</p><p>Multi Cooker&nbsp;<br>Nikmati multi fungsi untuk memasak nasi dan memasak mie. Multi cooker dengan fungsi yang terdapat di dalam 1 alat, Anda tidak perlu lagi harus repot menyiapkan banyak perangkat.&nbsp;</p><p>Hemat Listrik&nbsp;<br>Khawatir apabila perangkat dapur Anda akan mengunakan daya listrik yang besar? Miyako PSG-607 Multi Cooker hanya memerlukan daya listrik hanya sebesar 300 Watt untuk memasak.&nbsp;</p><p>Kapasitas 0.6 L Kapasitas penanak nasinya mampu menampung hingga 0.63L. Kapasitas ini membuat Anda dapat memasak untuk keluarga kecil tanpa kekurangan dan kesulitan. Multi cooker ini juga mampu memasak air dengan kapasitas 1.85 L. Multi cooker yang mini ini cocok digunakan di kos, kantor, kios / konter dan untuk bepergian.&nbsp;</p><p>Desain Minimalis&nbsp;<br>Dibuat dengan bodi plastik dan alumunium pan Spray, Miyako PSG-607 cocok diletakkan di mana saja. Multi cooker kecil ini memiliki bentuk bulat dengan warna putih dan bercorak batik yang cantik sehingga pas sebagai pendamping wadah di meja makan.</p>', '2022-06-15 14:19:56', 1, 'miyako-rice-cooker-mini-magic-com-psg-607-06-liter', 1, 0, 'Kota Denpasar');
 
 -- --------------------------------------------------------
 
@@ -356,7 +359,10 @@ INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `
 (234, 21804, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 10, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', ''),
 (235, 177183, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 'test'),
 (236, 177183, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', ''),
-(237, 982456, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', 192000, 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 'warna abu abu');
+(237, 982456, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', 192000, 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 'warna abu abu'),
+(238, 515961, 'MIYAKO Rice Cooker Mini Magic Com PSG 607 (0.6 Liter)', 169900, 1, 'miyako-rice-cooker-mini-magic-com-psg-607-06-liter', ''),
+(239, 403369, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 41'),
+(240, 428335, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', '');
 
 -- --------------------------------------------------------
 
@@ -483,7 +489,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -507,7 +513,7 @@ ALTER TABLE `img_product`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -543,7 +549,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `users`
