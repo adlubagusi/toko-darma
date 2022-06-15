@@ -32,6 +32,7 @@
 		$cStatus 	  	= $_POST['cStatus'];
 		$nWeight      	= $_POST['nWeight'];
 		$cDescription 	= $_POST['cDescription'];
+		$cRegion		= $_POST['cRegion'];
         $cLink			= textToLink($cTitle);
 		$dbDt = mysqli_query($db,"select * from products where id='$cID'");
 		if($dbRw = mysqli_fetch_array($dbDt)){
@@ -43,7 +44,7 @@
 					echo "<script>alert('Gagal Upload');</script>";
 				}
 			}
-			mysqli_query($db,"update products set title='$cTitle',price='$nPrice',stock='$nStock',category='$cCategory',condit='$cCondition',publish='$cStatus',weight='$nWeight',description='$cDescription',link='$cLink',img='$cFileName' where id='$cID'");
+			mysqli_query($db,"update products set title='$cTitle',price='$nPrice',stock='$nStock',category='$cCategory',condit='$cCondition',publish='$cStatus',weight='$nWeight',description='$cDescription',link='$cLink',img='$cFileName',region='$cRegion' where id='$cID'");
 			echo "<script>alert('Data Disimpan');</script>";
 			echo "<script>window.location.href = 'admin.php?page=products';</script>";
 		}else{
@@ -458,9 +459,6 @@ if(!isset($_GET['opt'])){
 								class="form-control"
 							/>
 						</div>
-                        <label>Old photo</label>
-                        <img src="assets/images/product/<?= $dbR['img']; ?>" style="width: 150px">
-                        <input type="hidden" name="cOldImg" value="<?= $dbR['img']; ?>">
                     </div>
                     <div class="col-md-6">
 						<div class="form-group">
@@ -474,6 +472,28 @@ if(!isset($_GET['opt'])){
                                     <option value="1">Publish</option>
                                 <?php } ?>
 							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Old photo</label>
+							<img src="assets/images/product/<?= $dbR['img']; ?>" style="width: 150px">
+							<input type="hidden" name="cOldImg" value="<?= $dbR['img']; ?>">
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="region">Wilayah</label>
+							<input
+								type="text"
+								class="form-control"
+								id="region"
+								name="cRegion"
+								placeholder="contoh: Kota Denpasar"
+								autocomplete="off"
+                                required
+                                value="<?= $dbR['region']; ?>"
+							/>
 						</div>
 					</div>
 				</div>
