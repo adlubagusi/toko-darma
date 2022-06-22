@@ -224,6 +224,35 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                     >Kirim Pesanan</a
                 >
             <?php }else if($vaInvoice['status_refund'] > 0){ ?>
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <p class="lead mb-0 pb-0">Bukti Barang</p>
+                    </div>
+                    <div class="card-body">
+                        <?php 
+                            $dbImg = mysqli_query($db,"select * from img_refund where id_invoice='$cInvoice'");
+                            if(mysqli_num_rows($dbImg) > 0){ 
+                        ?>
+                        <div class="row">
+                            <?php while($dbRImg = mysqli_fetch_array($dbImg)){ ?>
+                                <div class="col-md-6 mb-3">
+                                    <img src="assets/images/refund/<?= $dbRImg['img'] ?>" width="100%">
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <?php }else{ ?>
+                            <div class="alert alert-warning">Belum ada foto</div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <p class="lead mb-0 pb-0">Alasan Pengembalian</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info"><?= $vaInvoice['refund_text']?></div>
+                    </div>
+                </div>
                 <a href="?page=orders&opt=refund&invoice=<?= $vaInvoice['invoice_code']; ?>" onclick="return confirm('Anda sudah menerima barang dan sudah mengembalikan dana?');" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Barang Sudah Diterima</a>
             <?php } ?>
         </div>

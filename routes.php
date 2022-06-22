@@ -36,6 +36,10 @@ if(isset($_GET['page'])){
         $page = "module/pages/profile.php";
         $css = 'page.css';
         $responsive = '';
+    }else if($url == "refund"){
+        $page = "module/pages/refund.php";
+        $css = 'page.css';
+        $responsive = '';
     }
 }
 

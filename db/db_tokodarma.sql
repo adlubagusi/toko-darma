@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2022 at 04:17 PM
+-- Generation Time: Jun 22, 2022 at 06:49 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -153,6 +153,26 @@ INSERT INTO `img_product` (`id`, `id_product`, `img`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `img_refund`
+--
+
+CREATE TABLE `img_refund` (
+  `id` int(11) NOT NULL,
+  `id_invoice` int(11) NOT NULL,
+  `img` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `img_refund`
+--
+
+INSERT INTO `img_refund` (`id`, `id_invoice`, `img`) VALUES
+(24, 515961, '1655913995367'),
+(25, 515961, '1655914012515');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `invoice`
 --
 
@@ -173,24 +193,25 @@ CREATE TABLE `invoice` (
   `bukti_transfer` varchar(100) NOT NULL,
   `no_resi` varchar(50) NOT NULL,
   `expedisi` varchar(50) NOT NULL,
-  `status_refund` int(1) NOT NULL
+  `status_refund` int(1) NOT NULL,
+  `refund_text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status_payment`, `status_delivery`, `bukti_transfer`, `no_resi`, `expedisi`, `status_refund`) VALUES
-(176, '623966', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 1, 3, '1652373380894', '10987654321', 'SICEPAT', 0),
-(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, '', '', '', 0),
-(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 1, 3, '1652288215039', '1234567890', 'JNE', 0),
-(179, '321699', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '15000', 192000, 207000, '2022-05-14 06:08:41', 1, 3, '1652501670768', '030000414567', 'TIKI', 0),
-(180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 3, '1652503158751', 'QWE12344321', 'JNE', 0),
-(181, '177183', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. jalan no 890', '15000', 101499, 116499, '2022-06-01 09:22:57', 1, 3, '1654068240620', 'ASD0987654321', 'J&T', 0),
-(182, '982456', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Jl. Gatot Subroto III', '5000', 192000, 197000, '2022-06-05 18:03:02', 1, 2, '1654445009995', 'JNE123456789', 'JNE', 1),
-(183, '515961', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan Sama Kamu', '16000', 169900, 185900, '2022-06-15 14:51:55', 1, 1, '1655297535614', '', '', 0),
-(184, '403369', 'Qwerty Uiop', 'user@gmail.com', '081246319759', 9, 'Jl. Sunset Road No. 123', '5000', 89100, 94100, '2022-06-15 15:06:43', 1, 1, '1655298442292', '', '', 0),
-(185, '428335', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 11, 'test', '10000', 119000, 129000, '2022-06-15 15:40:28', 0, 0, '', '', '', 0);
+INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status_payment`, `status_delivery`, `bukti_transfer`, `no_resi`, `expedisi`, `status_refund`, `refund_text`) VALUES
+(176, '623966', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 1, 3, '1652373380894', '10987654321', 'SICEPAT', 0, ''),
+(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, '', '', '', 0, ''),
+(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 1, 3, '1652288215039', '1234567890', 'JNE', 0, ''),
+(179, '321699', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '15000', 192000, 207000, '2022-05-14 06:08:41', 1, 3, '1652501670768', '030000414567', 'TIKI', 0, ''),
+(180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 3, '1652503158751', 'QWE12344321', 'JNE', 0, ''),
+(181, '177183', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. jalan no 890', '15000', 101499, 116499, '2022-06-01 09:22:57', 1, 3, '1654068240620', 'ASD0987654321', 'J&T', 0, ''),
+(182, '982456', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Jl. Gatot Subroto III', '5000', 192000, 197000, '2022-06-05 18:03:02', 1, 2, '1654445009995', 'JNE123456789', 'JNE', 0, ''),
+(183, '515961', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan Sama Kamu', '16000', 169900, 185900, '2022-06-15 14:51:55', 1, 2, '1655297535614', 'ASDZXC123QWE', 'KANTOR POS', 2, 'Barang sudah rusak'),
+(184, '403369', 'Qwerty Uiop', 'user@gmail.com', '081246319759', 9, 'Jl. Sunset Road No. 123', '5000', 89100, 94100, '2022-06-15 15:06:43', 1, 1, '1655298442292', '', '', 0, ''),
+(185, '428335', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 11, 'test', '10000', 119000, 129000, '2022-06-15 15:40:28', 0, 0, '', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -428,6 +449,12 @@ ALTER TABLE `img_product`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `img_refund`
+--
+ALTER TABLE `img_refund`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `invoice`
 --
 ALTER TABLE `invoice`
@@ -489,7 +516,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -507,7 +534,13 @@ ALTER TABLE `general`
 -- AUTO_INCREMENT for table `img_product`
 --
 ALTER TABLE `img_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `img_refund`
+--
+ALTER TABLE `img_refund`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `invoice`
