@@ -32,7 +32,15 @@ if(isset($_GET['page'])){
         $page = "module/pages/history.php";
         $css = 'page.css';
         $responsive = '';
-    }   
+    }else if($url == "profile"){
+        $page = "module/pages/profile.php";
+        $css = 'page.css';
+        $responsive = '';
+    }else if($url == "refund"){
+        $page = "module/pages/refund.php";
+        $css = 'page.css';
+        $responsive = '';
+    }
 }
 
 if(isset($_GET['p'])){

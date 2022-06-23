@@ -128,33 +128,25 @@
         <!-- Divider -->
         <hr class="sidebar-divider" />
 
-        <?php $orders = mysqli_num_rows(mysqli_query($db,"select * from invoice where status_payment=0")); ?>
         <li class="nav-item">
-          <a class="nav-link" href="?page=orders">
-            <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Pesanan</span> <small class="badge badge-warning"><?=$orders?> baru</small></a
+          <a class="nav-link" href="?page=users">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span></a
           >
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" href="?page=categories">
-            <i class="fas fa-fw fa-tag"></i>
-            <span>Kategori</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="?page=products">
-            <i class="fas fa-fw fa-box-open"></i>
-            <span>Produk</span></a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="?page=settings">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Pengaturan</span></a
-          >
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Laporan</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+              <a class="collapse-item" href="?page=order_proccess">Pesanan Diproses</a>
+              <a class="collapse-item" href="?page=order_send">Pesanan Dikirim</a>
+              <a class="collapse-item" href="?page=best_products">Barang Terlaris</a>
+            </div>
+          </div>
         </li>
 
         <br />
@@ -226,7 +218,7 @@
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown"
                 >
-                  <a class="dropdown-item" href="?page=profile">
+                  <a class="dropdown-item" href="?page=adm_edit">
                     <i
                       class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"
                     ></i>
@@ -329,6 +321,32 @@ $("#showModalBodyAddPromo .input-money-hide").maskMoney();
 
 $('#modalInfoForDemoMode').modal('show');
 
+$("#btnPreview").on('click',function(){
+  var page     = "<?=$_GET['page']?>";
+  var tglawal  = $("#dTglAwal").val();
+  var tglakhir = $("#dTglAkhir").val();
+  window.location.href="?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir;
+})
+$("#btnPrint").on('click',function(){
+  var page       = "print_orders";
+  var tglawal    = $("#dTglAwal").val();
+  var tglakhir   = $("#dTglAkhir").val();
+  var titleorder = $("#cTitleOrder").val();
+  window.open(
+    "?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir+"&titleorder="+titleorder,
+    "_blank"
+  )
+})
+$("#btnPrintBestProduct").on('click',function(){
+  var page       = "print_best_products";
+  var tglawal    = $("#dTglAwal").val();
+  var tglakhir   = $("#dTglAkhir").val();
+  var titleorder = $("#cTitleOrder").val();
+  window.open(
+    "?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir+"&titleorder="+titleorder,
+    "_blank"
+  )
+})
 </script>
 
 </body>

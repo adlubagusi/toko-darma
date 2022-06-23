@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2022 at 07:20 PM
+-- Generation Time: Jun 22, 2022 at 06:49 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -61,6 +61,13 @@ CREATE TABLE `cart` (
   `ket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `id_user`, `id_product`, `name`, `price`, `qty`, `img`, `link`, `weight`, `ket`) VALUES
+(2, 2, 44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, '1651391152546', 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 750, '');
+
 -- --------------------------------------------------------
 
 --
@@ -91,33 +98,6 @@ INSERT INTO `categories` (`id`, `name`, `icon`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `footer`
---
-
-CREATE TABLE `footer` (
-  `id` int(11) NOT NULL,
-  `page` int(11) NOT NULL,
-  `type` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `footer`
---
-
-INSERT INTO `footer` (`id`, `page`, `type`) VALUES
-(1, 1, 1),
-(2, 3, 1),
-(3, 2, 2),
-(4, 1, 1),
-(5, 4, 1),
-(6, 5, 1),
-(7, 6, 2),
-(8, 7, 2),
-(9, 8, 2);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `general`
 --
 
@@ -126,11 +106,7 @@ CREATE TABLE `general` (
   `app_name` varchar(50) NOT NULL,
   `slogan` varchar(150) NOT NULL,
   `navbar_color` varchar(10) NOT NULL,
-  `host_mail` varchar(50) NOT NULL,
-  `port_mail` varchar(5) NOT NULL,
-  `crypto_mail` varchar(10) NOT NULL,
   `account_mail` varchar(50) NOT NULL,
-  `pass_mail` varchar(150) NOT NULL,
   `whatsapp` varchar(20) NOT NULL,
   `whatsappv2` varchar(20) NOT NULL,
   `email_contact` varchar(50) NOT NULL
@@ -140,8 +116,8 @@ CREATE TABLE `general` (
 -- Dumping data for table `general`
 --
 
-INSERT INTO `general` (`id`, `app_name`, `slogan`, `navbar_color`, `host_mail`, `port_mail`, `crypto_mail`, `account_mail`, `pass_mail`, `whatsapp`, `whatsappv2`, `email_contact`) VALUES
-(1, 'Toko Darma', 'Easy and Reliable Online Shop', '#2d2d2d', 'ssl://gmail.com', '465', '', '', '', '081907784650', '6281234567890', 'baiqfenijuniati946@gmail.com');
+INSERT INTO `general` (`id`, `app_name`, `slogan`, `navbar_color`, `account_mail`, `whatsapp`, `whatsappv2`, `email_contact`) VALUES
+(1, 'Toko Darma', 'Easy and Reliable Online Shop', '#2d2d2d', '', '081907784650', '6281234567890', 'baiqfenijuniati946@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -171,7 +147,28 @@ INSERT INTO `img_product` (`id`, `id_product`, `img`) VALUES
 (17, 44, '1651391282609'),
 (19, 44, '1651391298161'),
 (20, 44, '1651391320099'),
-(21, 45, '1651391597862');
+(21, 45, '1651391597862'),
+(22, 46, '1655296033347');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `img_refund`
+--
+
+CREATE TABLE `img_refund` (
+  `id` int(11) NOT NULL,
+  `id_invoice` int(11) NOT NULL,
+  `img` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `img_refund`
+--
+
+INSERT INTO `img_refund` (`id`, `id_invoice`, `img`) VALUES
+(24, 515961, '1655913995367'),
+(25, 515961, '1655914012515');
 
 -- --------------------------------------------------------
 
@@ -193,17 +190,28 @@ CREATE TABLE `invoice` (
   `date_input` datetime NOT NULL,
   `status_payment` int(1) NOT NULL,
   `status_delivery` int(1) NOT NULL,
-  `bukti_transfer` varchar(100) NOT NULL
+  `bukti_transfer` varchar(100) NOT NULL,
+  `no_resi` varchar(50) NOT NULL,
+  `expedisi` varchar(50) NOT NULL,
+  `status_refund` int(1) NOT NULL,
+  `refund_text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status_payment`, `status_delivery`, `bukti_transfer`) VALUES
-(176, '623966', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 0, 0, ''),
-(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, ''),
-(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 0, 0, '1652288215039');
+INSERT INTO `invoice` (`id`, `invoice_code`, `name`, `email`, `telp`, `region`, `address`, `ongkir`, `total_price`, `total_all`, `date_input`, `status_payment`, `status_delivery`, `bukti_transfer`, `no_resi`, `expedisi`, `status_refund`, `refund_text`) VALUES
+(176, '623966', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Test', '5000', 89100, 94100, '2022-04-30 18:53:43', 1, 3, '1652373380894', '10987654321', 'SICEPAT', 0, ''),
+(177, '212117', 'Bagus', 'user2@gmail.com', '085', 12, 'Jl. Jalan No. 123', '40000', 309975, 349975, '2022-05-01 10:20:12', 0, 0, '', '', '', 0, ''),
+(178, '435671', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan sama kamu no 1', '8000', 208100, 216100, '2022-05-11 17:53:55', 1, 3, '1652288215039', '1234567890', 'JNE', 0, ''),
+(179, '321699', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '15000', 192000, 207000, '2022-05-14 06:08:41', 1, 3, '1652501670768', '030000414567', 'TIKI', 0, ''),
+(180, '021804', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. potato chips no 99', '30000', 123990, 153990, '2022-05-14 06:37:01', 1, 3, '1652503158751', 'QWE12344321', 'JNE', 0, ''),
+(181, '177183', 'Mister Potato Chips', 'me@potatochips.com', '082321654789', 13, 'Jl. jalan no 890', '15000', 101499, 116499, '2022-06-01 09:22:57', 1, 3, '1654068240620', 'ASD0987654321', 'J&T', 0, ''),
+(182, '982456', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 9, 'Jl. Gatot Subroto III', '5000', 192000, 197000, '2022-06-05 18:03:02', 1, 2, '1654445009995', 'JNE123456789', 'JNE', 0, ''),
+(183, '515961', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 12, 'Jl. Jalan Sama Kamu', '16000', 169900, 185900, '2022-06-15 14:51:55', 1, 2, '1655297535614', 'ASDZXC123QWE', 'KANTOR POS', 2, 'Barang sudah rusak'),
+(184, '403369', 'Qwerty Uiop', 'user@gmail.com', '081246319759', 9, 'Jl. Sunset Road No. 123', '5000', 89100, 94100, '2022-06-15 15:06:43', 1, 1, '1655298442292', '', '', 0, ''),
+(185, '428335', 'Qwerty Uiop', 'user@gmail.com', '081234567890', 11, 'test', '10000', 119000, 129000, '2022-06-15 15:40:28', 0, 0, '', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -251,19 +259,51 @@ CREATE TABLE `products` (
   `publish` int(11) NOT NULL,
   `link` varchar(100) NOT NULL,
   `transaction` int(11) NOT NULL,
-  `promo_price` varchar(30) NOT NULL,
-  `viewer` int(11) NOT NULL
+  `viewer` int(11) NOT NULL,
+  `region` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `promo_price`, `viewer`) VALUES
-(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 0, '100,000.00', 3),
-(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 0, '', 0),
-(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 0, '', 0),
-(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 0, '', 0);
+INSERT INTO `products` (`id`, `title`, `price`, `stock`, `category`, `condit`, `weight`, `img`, `description`, `date_submit`, `publish`, `link`, `transaction`, `viewer`, `region`) VALUES
+(42, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', '192,000.00', 10, 13, 1, 100, '1602920836385.jpg', '<p>KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat adalah kerudung segiempat berbahan Nuvoile yang didesain comfy dalam patterned dan mudah diatur sehingga nyaman saat digunakan. Ukuran : 115x115 cm</p>', '2020-10-17 14:47:16', 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 2, 3, 'Kota Denpasar'),
+(43, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', '89,100.00', 50, 12, 1, 250, '1650183481044', '<p>Sepatu Sneakers joemen slip on dan Kasual Pria untuk jalan sekolah olahraga kuliah kerja, salah satu model baru dan trendy untuk anda miliki. Didesain untuk bisa dipakai dalam berbagai acara. Sangat nyaman dan kokoh saat anda pakai sehingga dapat menunjang penampilan dan kepercayaan diri anda.&nbsp;</p><p>Detail produk ; - ukuran ready 38/39/40/41/42/43 - bahan kulit pu sintetis - include box joemen original - fitur : ringan.empuk.nyaman di pakai Produk ORIGINAL 100% Model simple dan elegan trend terbaru Kualitas bagus harga terjangkau Nyaman saat dipakai Perawatan mudah<br>&nbsp;</p>', '2022-04-17 10:18:01', 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 5, 0, 'Kota Denpasar'),
+(44, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', '119,000.00', 70, 10, 1, 750, '1651391152546', '<p>Ingin membuat jus buah dengan es batu sekaligus?&nbsp;<br>Sering kesulitan menggiling daging sapi, ayam atau ikan?&nbsp;<br>Repot menghaluskan makanan bayi?&nbsp;</p><p>Bikin semua cepat beres dengan GOTO Press Capsule Cutter Quatre Hand Blender yang punya banyak kelebihan.&nbsp;<br>1.Memiliki 4 mata pisau yang tajam, sehingga menghaluskan lebih cepat dibandingkan blender lainnya&nbsp;<br>2.Watt relatif kecil yang hemat listrik&nbsp;<br>3.Pemakaian mudah dengan cara menekan bagian atas selama memblender&nbsp;<br>4.Membantu kegiatan rumah tangga seperti menghaluskan makanan bayi, sayuran, buah, daging dan kacang.&nbsp;</p><p>Cari yang pasti, belinya di GOTO Hardware saja.&nbsp;<br>1. Karena GOTO Hardware barangnya bener-bener berkualitas dan orisinil.&nbsp;<br>2. Karena GOTO Hardware bener-bener tidak pernah mengecewakan selama 20 tahun.<br>3. Karena GOTO Hardware Hebat - Hemat Banget.&nbsp;<br>4. Karena Customer Service nya GOTO Hardware bener-bener ramah dan fast response.&nbsp;<br>5. Karena pengemasan barangnya GOTO Hardware bener-bener rapih dan aman.&nbsp;<br><br>Spesifikasi Material:&nbsp;<br>Material: Akrilik Daya listrik: 220 Watt&nbsp;<br>Voltase: 220 Volt&nbsp;<br>Kapasitas: 200gr&nbsp;<br>Ukuran : Panjang 23,3 cm x Lebar : 11.6 cm<br>&nbsp;</p>', '2022-05-01 09:45:52', 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', 3, 0, 'Kota Denpasar'),
+(45, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', '12,399.00', 1500, 19, 1, 200, '1651391521314', '<p>indocafe coffemix 3in1 1 renceng isi 10pc&nbsp;</p><p>adalah kopi instant 3in1 yg mempunyai rasa nikmat serta cocok disajikan dlm berbagai suasana&nbsp;<br>&nbsp;</p>', '2022-05-01 09:52:01', 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 3, 0, 'Kota Denpasar'),
+(46, 'MIYAKO Rice Cooker Mini Magic Com PSG 607 (0.6 Liter)', '169,900.00', 20, 10, 1, 2000, '1655295596672', '<p>Rice Cooker Serbaguna<br>&nbsp;---- TIDAK BISA UNTUK MENGHANGATKAN ------&nbsp;<br>*Motif batik dapat berubah disesuaikan keluaran terbaru pabrik*&nbsp;<br>Fungsi Utama :&nbsp;<br>- Memasak Nasi atau Mie&nbsp;<br>- Kapasitas Nasi 0,63 L&nbsp;<br>- Daya 300 Watt&nbsp;<br>- Tegangan 220 VAC-50 Hz&nbsp;<br>- Panci aluminium coating teflon ( anti lengket )&nbsp;</p><p>Dimensi produk : Diameter panci : 17cm ; Tinggi 10.5cm&nbsp;<br>Garansi : 1 Tahun Service&nbsp;</p><p>Multi Cooker&nbsp;<br>Nikmati multi fungsi untuk memasak nasi dan memasak mie. Multi cooker dengan fungsi yang terdapat di dalam 1 alat, Anda tidak perlu lagi harus repot menyiapkan banyak perangkat.&nbsp;</p><p>Hemat Listrik&nbsp;<br>Khawatir apabila perangkat dapur Anda akan mengunakan daya listrik yang besar? Miyako PSG-607 Multi Cooker hanya memerlukan daya listrik hanya sebesar 300 Watt untuk memasak.&nbsp;</p><p>Kapasitas 0.6 L Kapasitas penanak nasinya mampu menampung hingga 0.63L. Kapasitas ini membuat Anda dapat memasak untuk keluarga kecil tanpa kekurangan dan kesulitan. Multi cooker ini juga mampu memasak air dengan kapasitas 1.85 L. Multi cooker yang mini ini cocok digunakan di kos, kantor, kios / konter dan untuk bepergian.&nbsp;</p><p>Desain Minimalis&nbsp;<br>Dibuat dengan bodi plastik dan alumunium pan Spray, Miyako PSG-607 cocok diletakkan di mana saja. Multi cooker kecil ini memiliki bentuk bulat dengan warna putih dan bercorak batik yang cantik sehingga pas sebagai pendamping wadah di meja makan.</p>', '2022-06-15 14:19:56', 1, 'miyako-rice-cooker-mini-magic-com-psg-607-06-liter', 1, 0, 'Kota Denpasar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating`
+--
+
+CREATE TABLE `rating` (
+  `ID` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `status` varchar(2) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_invoice` int(11) NOT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`ID`, `nama`, `email`, `deskripsi`, `status`, `rating`, `id_product`, `id_invoice`, `parent`, `datetime`) VALUES
+(58, 'Mister Potato Chips', 'me@potatochips.com', 'barang bagus', '1', 5, 43, 177183, NULL, '2022-06-01 10:36:19'),
+(59, 'Mister Potato Chips', 'me@potatochips.com', 'gaenak', '1', 2, 45, 177183, NULL, '2022-06-01 10:36:19'),
+(60, 'Mister Potato Chips', 'me@potatochips.com', 'kopi nikmat', '1', 5, 45, 21804, NULL, '2022-06-01 10:39:31'),
+(67, 'Qwerty Uiop', 'user@gmail.com', '', '1', 1, 43, 435671, NULL, '2022-06-05 02:36:16'),
+(68, 'Qwerty Uiop', 'user@gmail.com', '', '1', 1, 44, 435671, NULL, '2022-06-05 02:36:16'),
+(69, 'Qwerty Uiop', 'user@gmail.com', 'mantap ðŸ‘', '1', 5, 43, 623966, NULL, '2022-06-05 05:48:03');
 
 -- --------------------------------------------------------
 
@@ -285,7 +325,8 @@ INSERT INTO `region` (`id`, `region`, `price`) VALUES
 (9, 'Denpasar Utara', 5000),
 (10, 'Badung', 7500),
 (11, 'Gianyar', 10000),
-(12, 'Tabanan', 8000);
+(12, 'Tabanan', 8000),
+(13, 'Tangerang Kota', 15000);
 
 -- --------------------------------------------------------
 
@@ -295,8 +336,6 @@ INSERT INTO `region` (`id`, `region`, `price`) VALUES
 
 CREATE TABLE `settings` (
   `id` int(11) NOT NULL,
-  `promo` int(11) NOT NULL,
-  `promo_time` varchar(40) NOT NULL,
   `short_desc` text NOT NULL,
   `address` varchar(100) NOT NULL,
   `logo` varchar(30) NOT NULL,
@@ -307,44 +346,8 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `promo`, `promo_time`, `short_desc`, `address`, `logo`, `favicon`) VALUES
-(1, 0, '2020-10-24T01:00', 'Toko Darma merupakan....', 'Jl. Jalan sama kamu no.1', '1602916934871.jpg', '1602916934871.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sosmed`
---
-
-CREATE TABLE `sosmed` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `icon` varchar(20) NOT NULL,
-  `link` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `sosmed`
---
-
-INSERT INTO `sosmed` (`id`, `name`, `icon`, `link`) VALUES
-(1, 'Facebook', 'facebook-f', 'https://facebook.com/banatechindo'),
-(3, 'Twitter', 'twitter', 'https://twitter.com/tonisuwen'),
-(4, 'Linkedin', 'linkedin-in', 'https://linkedin.com/in/tonisuwendi'),
-(5, 'Instagram', 'instagram', 'https://instagram.com/tonisuwen'),
-(6, 'Youtube', 'youtube', 'https://youtube.com/tonisuwendi');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `testimonial`
---
-
-CREATE TABLE `testimonial` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `settings` (`id`, `short_desc`, `address`, `logo`, `favicon`) VALUES
+(1, 'Toko Darma merupakan....', 'Jl. Jalan sama kamu no.1', '1602916934871.jpg', '1602916934871.jpg');
 
 -- --------------------------------------------------------
 
@@ -372,7 +375,15 @@ INSERT INTO `transaction` (`id`, `id_invoice`, `product_name`, `price`, `qty`, `
 (229, 507119, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', ''),
 (230, 507119, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
 (231, 435671, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', ''),
-(232, 435671, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43');
+(232, 435671, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 43'),
+(233, 321699, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', 192000, 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', ''),
+(234, 21804, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 10, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', ''),
+(235, 177183, 'INDOCAFE COFFEMIX 3IN1 20GR RENCENG (ISI 10)', 12399, 1, 'indocafe-coffemix-3in1-20gr-renceng-isi-10', 'test'),
+(236, 177183, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', ''),
+(237, 982456, 'KAMI. Yarra Print Scarf Nuvoile Aster Jilbab Segiempat', 192000, 1, 'kami-yarra-print-scarf-nuvoile-aster-jilbab-segiempat', 'warna abu abu'),
+(238, 515961, 'MIYAKO Rice Cooker Mini Magic Com PSG 607 (0.6 Liter)', 169900, 1, 'miyako-rice-cooker-mini-magic-com-psg-607-06-liter', ''),
+(239, 403369, 'Joemen Sepatu Pria J 21 Ori Import Casual Kulit Kerja Kantor Santai Pesta Fashion Pria', 89100, 1, 'joemen-sepatu-pria-j-21-ori-import-casual-kulit-kerja-kantor-santai-pesta-fashion-pria', 'ukuran 41'),
+(240, 428335, 'Goto Capsule Blender Cutter Quatre Kapsul Penggiling Daging', 119000, 1, 'goto-capsule-blender-cutter-quatre-kapsul-penggiling-daging', '');
 
 -- --------------------------------------------------------
 
@@ -388,7 +399,7 @@ CREATE TABLE `users` (
   `telp` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `level` enum('admin','user','','') NOT NULL
+  `level` enum('admin','user','pemilik') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -397,8 +408,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `address`, `poscode`, `telp`, `email`, `password`, `level`) VALUES
 (1, 'Qwerty Uiop', 'Jl. Jalan sama kamu no 1', '65152', '081234567890', 'user@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
-(2, 'Administrator', '', '', '', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
-(3, 'Bagus', 'Jl. Jalan No. 123', '65150', '085', 'user2@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user');
+(2, 'Administrator', 'Jl. Gatot Subroto VI F', '', '081234567890', 'admin@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
+(3, 'Bagus', 'Jl. Jalan No. 123', '65150', '085', 'user2@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
+(4, 'Pemilik', 'Jl. Gatot Subroto VI F', '', '089123098345', 'pemilik@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'pemilik'),
+(8, 'Admin2', 'Jl. Test 1', '65123', '083222223', 'admin2@gmail.com', '040b7cf4a55014e185813e0644502ea9', 'admin'),
+(9, 'Mister Potato Chips', 'Tangerang, Indonesia', '15136', '082321654789', 'me@potatochips.com', '827ccb0eea8a706c4c34a16891f84e7b', 'user');
 
 --
 -- Indexes for dumped tables
@@ -423,12 +437,6 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `footer`
---
-ALTER TABLE `footer`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `general`
 --
 ALTER TABLE `general`
@@ -438,6 +446,12 @@ ALTER TABLE `general`
 -- Indexes for table `img_product`
 --
 ALTER TABLE `img_product`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `img_refund`
+--
+ALTER TABLE `img_refund`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -459,6 +473,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `region`
 --
 ALTER TABLE `region`
@@ -468,18 +488,6 @@ ALTER TABLE `region`
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sosmed`
---
-ALTER TABLE `sosmed`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `testimonial`
---
-ALTER TABLE `testimonial`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -508,19 +516,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `footer`
---
-ALTER TABLE `footer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `general`
@@ -532,13 +534,19 @@ ALTER TABLE `general`
 -- AUTO_INCREMENT for table `img_product`
 --
 ALTER TABLE `img_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `img_refund`
+--
+ALTER TABLE `img_refund`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -550,13 +558,19 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -565,28 +579,16 @@ ALTER TABLE `settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `sosmed`
---
-ALTER TABLE `sosmed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `testimonial`
---
-ALTER TABLE `testimonial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

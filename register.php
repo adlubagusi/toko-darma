@@ -69,6 +69,9 @@ else{
                     }
                   ?>
                   <form class="user" action="" method="post">
+                    <div class="form-group" style="text-align: center;">
+                      <label class="label">Sudah Punya Akun? <a href="login.php">Login</a></label>
+                    </div>
                     <div class="form-group">
                       <label for="name">Nama Lengkap</label>
                       <input type="text" autocomplete="off" id="name" name="cName" required class="form-control">

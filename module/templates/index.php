@@ -55,7 +55,7 @@
     <link rel="stylesheet" href="assets/select2-4.0.6-rc.1/dist/css/select2.min.css">
 
     <link rel="stylesheet" href="assets/lightbox2-2.11.1/dist/css/lightbox.css">
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <title><?= $vaGeneral['app_name'];?></title>
   </head>
   <body style="background-color: #f8f9fa !important;">
@@ -108,7 +108,7 @@
           <?= $_SESSION['name']?>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
-              <a class="dropdown-item" href=""><i class="fa fa-user"></i>&nbsp;Profil</a>
+              <a class="dropdown-item" href="?page=profile"><i class="fa fa-user"></i>&nbsp;Profil</a>
               <a class="dropdown-item" href="?page=cart"><i class="fa fa-shopping-cart"></i>&nbsp;Cart(<?=$nCart?>)</a>
               <a class="dropdown-item" href="?page=history"><i class="fa fa-history"></i>&nbsp;Riwayat Pesanan</a>
               <a class="dropdown-item" href="logout.php"><i class="fa fa-arrow-left"></i>&nbsp;Logout</a>

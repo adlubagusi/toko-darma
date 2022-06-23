@@ -62,7 +62,7 @@ $dbProduct = mysqli_query($db,"select * from products where category='$cIdCat' o
                     <a href="?c=<?= $cLink ?>" class="btn btn-danger text-light btn-sm">Reset Filter</a>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="main-product">
             <?php if(mysqli_num_rows($dbProduct) > 0){ ?>
             <?php while($p = mysqli_fetch_array($dbProduct)){ ?>

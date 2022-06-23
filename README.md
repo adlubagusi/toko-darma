@@ -10,3 +10,4 @@ user@gmail.com
 Folder yang perlu ditambahkan:
 /assets
     /bukti_transfer
+    /images/refund (new)

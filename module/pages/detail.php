@@ -5,6 +5,12 @@ $dbData = mysqli_query($db,"select p.*,p.id AS productId, p.link AS linkP,c.name
                         left join categories c on p.category=c.id 
                         where p.link='$cLink' group by p.id desc");
 $vaProduct  = mysqli_fetch_array($dbData);
+
+$vaRating = array();
+$dbRating = mysqli_query($db,"select * from rating where id_product='{$vaProduct['productId']}'");
+while($dbRow = mysqli_fetch_array($dbRating)){
+    $vaRating[] = $dbRow;
+}
 ?>
 <div class="wrapper">
     <div class="navigation">
@@ -31,8 +37,14 @@ $vaProduct  = mysqli_fetch_array($dbData);
             </div>
             <div class="ket">
                 <h1 class="title"><?= $vaProduct['title']; ?></h1>
-                <p class="subtitle">Terjual <?= $vaProduct['transaction']; ?> Produk &bull; <?= $vaProduct['viewer'] + 1; ?>x Dilihat</p>
+                <p class="subtitle">
+                    Terjual <?= $vaProduct['transaction']; ?> Produk &bull; <?= $vaProduct['viewer'] + 1; ?>x Dilihat<br>
+                    Dikirim dari <?= $vaProduct['region']?>
+                </p>
                 <hr>
+                <div class="alert alert-dismissible alert-success">
+                    Untuk cek ongkir, silahkan klik <a href="https://berdu.id/cek-ongkir" target="_blank" class="alert-link">disini</a>.
+                </div>
                 <table>
                     <tr>
                         <td class="t">Harga</td>
@@ -92,8 +104,70 @@ $vaProduct  = mysqli_fetch_array($dbData);
         </div>
     </div>
     <hr>
-    <div class="description">
-        <?= nl2br($vaProduct['description']); ?>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="deskripsi-tab" data-toggle="tab" href="#deskripsi" role="tab" aria-controls="deskripsi" aria-selected="true">Deskripsi</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="komentar-tab" data-toggle="tab" href="#komentar" role="tab" aria-controls="komentar" aria-selected="false">Review</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="deskripsi" role="tabpanel" aria-labelledby="deskripsi-tab">
+            <div class="description">
+                <?= nl2br($vaProduct['description']); ?>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="komentar" role="tabpanel" aria-labelledby="komentar-tab">
+            <div class="comments-area">
+                <h4><?=count($vaRating)?> Review</h4>
+                <?php
+                // echo "<pre>";
+                // print_r($vaRating);
+                foreach($vaRating as $key=>$value){
+                ?>
+                <div class="comment-list">
+                    <div class="single-comment justify-content-between d-flex" style="border-bottom: 1px solid #eee;">
+                        <div class="user justify-content-between d-flex">
+                            <div class="thumb" style="width: 40px;height: 50px;;">
+                                <img src="assets/images/user.png" alt="" style="width: 100%;height: 100%;">
+                            </div>
+                            <div class="desc">
+                                <div class="side-left">
+                                    <h5><a href="#"><?=$value['nama']?></a></h5>
+                                    <p class="date"><?=$value['datetime']?> </p>
+                                </div>
+                                <div class="side-right">
+                                    <p class="comment">
+                                        <fieldset class="rating">
+                                            <span id="stars<?=$value['ID']?>">
+                                                <script>
+                                                    function getStars(id,rating) {
+                                                        rating = Math.round(rating * 2) / 2;
+                                                        let output = [];
+                                                        for (var i = rating; i >= 1; i--)
+                                                        output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                                                        if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                                                        for (let i = (5 - rating); i >= 1; i--)
+                                                        output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+                                                        document.getElementById("stars"+id).innerHTML = output.join('');
+                                                    }
+                                                    getStars('<?=$value['ID']?>','<?=$value['rating']?>');
+                                                </script>
+                                            </span>
+                                        </fieldset>
+                                        <?php echo $value['deskripsi'];?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
     </div>
     <hr>
 </div>
@@ -224,5 +298,7 @@ $vaProduct  = mysqli_fetch_array($dbData);
             })
         }
     })
+
+    
 
 </script>

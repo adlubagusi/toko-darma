@@ -143,7 +143,8 @@ div.wrapper div.top div.main-top div.ket table tr td input {
 
 div.wrapper div.description {
 	color: #666666;
-	margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
 }
 
 div.wrapper div.description h2 {
@@ -164,6 +165,81 @@ div.wrapper div.description p {
 
 div.wrapper div.description img {
 	width: 50%;
+}
+
+.comments-area {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+}
+.comments-area h4 {
+    margin-bottom: 30px;
+    color: #3a414e;
+    font-size: 18px;
+    font-weight: 700;
+}
+.comments-area .comment-list {
+    padding-bottom: 15px;
+}
+.comments-area .thumb {
+    margin-right: 20px;
+}
+.comments-area h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.comments-area a {
+    font-size: 12px;
+    color: #3a414e;
+}
+.comments-area .date {
+    font-size: 13px;
+    margin-bottom: 13px;
+    text-transform: uppercase;
+}
+.comments-area .comment {
+    color: #797979;
+    margin-bottom: 0px;
+}
+.comments-area .btn-reply {
+    background-color: rgba(130,139,178,0.1);
+    color: #3a414e;
+    border: 1px solid #eee;
+    padding: 0px 18px;
+    font-size: 13px;
+    display: block;
+    line-height: 28px;
+    border-radius: 0px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.single-comment{
+	width: 600px;
+}
+.comments-area .desc{
+    width: 400px;
+	padding-bottom: 10px;
+}
+.comments-area .desc .side-left{
+	float: left;
+}
+.comments-area .desc .side-right{
+	float: right;
+}
+.comments-area .desc .side-right p{
+	color: #797979 !important;
+	margin-bottom: 0px;
+	display: block;
+	position: relative;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 20px;
+	color: var(--color-text-low,rgba(49,53,59,0.68));
+	text-decoration: initial;
+	font-family: "open sans", tahoma, sans-serif;
 }
 
 @media screen and (max-width: 1250px) {
@@ -262,4 +338,60 @@ div.wrapper div.description img {
 	div.wrapper div.description {
 		width: 100%;
 	}
+}
+
+.rating{
+	font-size: 20px;
+}
+
+.rating .fa-star-o{
+	font-size: 17.5px;
+}
+
+.rating input[type="radio"]:not(:nth-of-type(0)) {
+	/* hide visually */    
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.rating [type="radio"]:not(:nth-of-type(0)) + label {
+	display: none;
+}
+
+label[for]:hover {
+	cursor: pointer;
+}
+
+.rating .stars label:before {
+	content: "★";
+    font-size: 20px;
+}
+
+.stars label {
+	color: lightgray;
+}
+
+.stars label:hover {
+	text-shadow: 0 0 1px #000;
+}
+
+.rating [type="radio"]:nth-of-type(1):checked ~ .stars label:nth-of-type(-n+1),
+.rating [type="radio"]:nth-of-type(2):checked ~ .stars label:nth-of-type(-n+2),
+.rating [type="radio"]:nth-of-type(3):checked ~ .stars label:nth-of-type(-n+3),
+.rating [type="radio"]:nth-of-type(4):checked ~ .stars label:nth-of-type(-n+4),
+.rating [type="radio"]:nth-of-type(5):checked ~ .stars label:nth-of-type(-n+5) {
+	color: orange;
+}
+
+.rating [type="radio"]:nth-of-type(1):focus ~ .stars label:nth-of-type(1),
+.rating [type="radio"]:nth-of-type(2):focus ~ .stars label:nth-of-type(2),
+.rating [type="radio"]:nth-of-type(3):focus ~ .stars label:nth-of-type(3),
+.rating [type="radio"]:nth-of-type(4):focus ~ .stars label:nth-of-type(4),
+.rating [type="radio"]:nth-of-type(5):focus ~ .stars label:nth-of-type(5) {
+	color: darkorange;
 }
