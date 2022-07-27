@@ -1,4 +1,5 @@
 <?php
+include 'include/rajaongkir.php';
 $cIdUser = $_SESSION['user_id'];
 if(isset($_GET['action'])){
     if($_GET['action'] == "get_ongkir"){

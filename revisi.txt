@@ -1,0 +1,17 @@
+revisi :
+a. Admin
+1.  Cek pesanan belum dibayar,dikirim,packing,komplain
+2. Di produk bisa tambah video
+3. Pendapatan hari ini
+4. Isi harga pokok dan jual
+5. Laba dan rugi
+6. Promo dan diskon
+7.  Cek ongkir langsung
+8. Pengembalian barang dibayar oleh siapa
+9. Barang rusak isi video
+b. Pemilik
+Laporan pembayaran,kemas,belum dikirim,sampai,komplain/refund
+c. Pelanggan
+Tampilan fleksibel
+Cek ongkir langsung ()
+Barang refund isi video
