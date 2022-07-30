@@ -142,8 +142,8 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="bg-white py-2 collapse-inner rounded">
               <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-              <a class="collapse-item" href="?page=order_proccess">Pesanan Diproses</a>
-              <a class="collapse-item" href="?page=order_send">Pesanan Dikirim</a>
+              <a class="collapse-item" href="?page=orders">Daftar Pesanan</a>
+              <a class="collapse-item" href="?page=sales">Laba Rugi Penjualan</a>
               <a class="collapse-item" href="?page=best_products">Barang Terlaris</a>
             </div>
           </div>
@@ -339,6 +339,16 @@ $("#btnPrint").on('click',function(){
 })
 $("#btnPrintBestProduct").on('click',function(){
   var page       = "print_best_products";
+  var tglawal    = $("#dTglAwal").val();
+  var tglakhir   = $("#dTglAkhir").val();
+  var titleorder = $("#cTitleOrder").val();
+  window.open(
+    "?page="+page+"&tglawal="+tglawal+"&tglakhir="+tglakhir+"&titleorder="+titleorder,
+    "_blank"
+  )
+})
+$("#btnPrintSales").on('click',function(){
+  var page       = "print_sales";
   var tglawal    = $("#dTglAwal").val();
   var tglakhir   = $("#dTglAkhir").val();
   var titleorder = $("#cTitleOrder").val();

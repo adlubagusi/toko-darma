@@ -95,7 +95,7 @@
             </div>
             <div class="card-body">
                 <?php 
-                $data = mysqli_query($db,"select * from invoice where status_payment=0");
+                $data = mysqli_query($db,"select * from invoice where status_payment=0 order by id desc");
                 if(mysqli_num_rows($data) > 0){ ?>
                 <div class="table-responsive">
                   <table class="table table-bordered" width="100%">

@@ -1,5 +1,4 @@
 <?php
-$dbProduct = mysqli_query($db,"select * from products whre publish=1");
 $ob     = isset($_GET['ob']) ? $_GET['ob'] : null;
 $cTitleHead = "";
 $cOrderBy   = "id";
@@ -19,7 +18,10 @@ if($ob != NULL){
        $cTitleHead = 'Sort > Highest Price';
     }
 }
-$dbProduct = mysqli_query($db,"select * from products where publish=1 order by $cOrderBy");
+$cWhere = "";
+if(isset($_GET['q'])) $cWhere = " and (title like '%{$_GET['q']}%' or description like '%{$_GET['q']}%')";
+
+$dbProduct = mysqli_query($db,"select * from products where publish=1 $cWhere order by $cOrderBy");
 
 ?>
 <style>

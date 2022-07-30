@@ -16,17 +16,18 @@ if(isset($_GET['action'])){
         }
     }else if($_GET['action'] == "terima_pesanan"){
         $cInvoice = $_GET['invoice'];
+        //update barang terjual dan stok
+        $dbData = mysqli_query($db,"select * from transaction where id_invoice='$cInvoice'");
+        while($dbRow = mysqli_fetch_array($dbData)){
+            $cLink = $dbRow['link'];
+            $dbDt = mysqli_query($db,"select * from products where link='$cLink'");
+            if($dbR = mysqli_fetch_array($dbDt)){
+                $nTransaction = $dbR['transaction'] + $dbRow['qty']; 
+                $nStock       = $dbR['stock'] - $dbRow['qty'];
+                mysqli_query($db,"update products set transaction='$nTransaction',stock='$nStock' where id='{$dbR['id']}'");
+            }
+        }
         mysqli_query($db,"update invoice set status_delivery='3' where invoice_code='$cInvoice'");
-        //update barang terjual
-        // $dbData = mysqli_query($db,"select * from transaction where id_invoice='$cInvoice'");
-        // while($dbRow = mysqli_fetch_array($dbData)){
-        //     $cLink = $dbRow['Link'];
-        //     $dbDt = mysqli_query($db,"select * from products where link='$cLink'");
-        //     if($dbR = mysqli_fetch_array($dbDt)){
-        //         $nTransaction = $dbR['transaction'] + $dbRow['qty']; 
-        //         mysqli_query($db,"update products set transaction='$nTransaction' where id='{$dbR['id']}'");
-        //     }
-        // }
         echo "<script>alert('Pesanan Sudah Diterima');</script>";
         echo "<script>window.location.href = 'index.php?page=history';</script>";
     }else if($_GET['action'] == "get_item"){

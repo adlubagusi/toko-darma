@@ -123,7 +123,7 @@ if(isset($_GET['action'])){
             </div>
             <div class="form-group">
                 <label for="address">Alamat Lengkap</label>
-                <textarea name="address" rows="3" id="address" class="form-control" placeholder="Isikan nama jalan, nomor rumah, nama gedung, dll." required></textarea>
+                <textarea name="address" rows="3" id="address" class="form-control" placeholder="Isikan nama jalan, nomor rumah, nama gedung, dll." required><?= $_SESSION['address']?></textarea>
             </div>
         </div>
         <?php }else{ ?>

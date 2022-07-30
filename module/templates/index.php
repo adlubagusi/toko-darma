@@ -131,7 +131,8 @@
 
 <div class="search-form">
   <i class="fa fa-times"></i>
-  <form action="http://localhost/olshop/search" method="get">
+  <form action="index.php" method="get">
+    <input type="hidden" name="page" value="search">
     <input type="text" placeholder="Search a product" autocomplete="off" name="q"><!--
     --><button type="submit" style="background-color: #bbaaa4">Search</i></button>
   </form>

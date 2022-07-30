@@ -1,7 +1,8 @@
 <?php
 	if(isset($_POST['add_product'])){
 		$cTitle 		= $_POST['cTitle'];
-		$nPrice 		= $_POST['nPrice'];
+		$nPrice 		= string2Number($_POST['nPrice']);
+		$nPurchasePrice = string2Number($_POST['nPurchasePrice']);
 		$nStock 	    = $_POST['nStock'];
 		$cCategory 		= $_POST['cCategory'];
 		$cCondition 	= $_POST['cCondition'];
@@ -14,8 +15,8 @@
 		$cDir		  	= "./assets/images/product/".$cImg;
 		$dDate			= date("Y-m-d H:i:s");
 		if (move_uploaded_file($_FILES["cImg"]["tmp_name"], $cDir)) {
-			mysqli_query($db,"insert into products (title,price,stock,category,condit,weight,img,description,date_submit,publish,link,region) 
-						values ('$cTitle','$nPrice','$nStock','$cCategory','$cCondition','$nWeight','$cImg','$cDescription','$dDate','$cStatus','$cLink','$cRegion')");
+			mysqli_query($db,"insert into products (title,purchase_price,price,stock,category,condit,weight,img,description,date_submit,publish,link,region) 
+						values ('$cTitle','$nPurchasePrice','$nPrice','$nStock','$cCategory','$cCondition','$nWeight','$cImg','$cDescription','$dDate','$cStatus','$cLink','$cRegion')");
 			echo "<script>alert('Data Disimpan');</script>";
 			echo "<script>window.location.href = 'admin.php?page=products';</script>";
 		}else {
@@ -25,16 +26,16 @@
 
 	if(isset($_POST['edit_product'])){
 		$cID		    = $_GET['id'];
-		$cTitle 		= $_POST['cTitle'];
-		$nPrice 		= $_POST['nPrice'];
+		$cTitle 		= clean($_POST['cTitle']);
+		$nPurchasePrice = string2Number($_POST['nPurchasePrice']);
+		$nPrice 		= string2Number($_POST['nPrice']);
 		$nStock 	    = $_POST['nStock'];
 		$cCategory 		= $_POST['cCategory'];
 		$cCondition 	= $_POST['cCondition'];
 		$cStatus 	  	= $_POST['cStatus'];
 		$nWeight      	= $_POST['nWeight'];
-		$cDescription 	= $_POST['cDescription'];
+		$cDescription 	= clean($_POST['cDescription']);
 		$cRegion		= $_POST['cRegion'];
-        $cLink			= textToLink($cTitle);
 		$dbDt = mysqli_query($db,"select * from products where id='$cID'");
 		if($dbRw = mysqli_fetch_array($dbDt)){
 			$cFileName  = $_POST['cOldImg'];
@@ -45,7 +46,7 @@
 					echo "<script>alert('Gagal Upload');</script>";
 				}
 			}
-			mysqli_query($db,"update products set title='$cTitle',price='$nPrice',stock='$nStock',category='$cCategory',condit='$cCondition',publish='$cStatus',weight='$nWeight',description='$cDescription',link='$cLink',img='$cFileName',region='$cRegion' where id='$cID'");
+			mysqli_query($db,"update products set title='$cTitle',purchase_price='$nPurchasePrice',price='$nPrice',stock='$nStock',category='$cCategory',condit='$cCondition',publish='$cStatus',weight='$nWeight',description='$cDescription',img='$cFileName',region='$cRegion' where id='$cID'");
 			echo "<script>alert('Data Disimpan');</script>";
 			echo "<script>window.location.href = 'admin.php?page=products';</script>";
 		}else{
@@ -76,7 +77,20 @@
 			}else{
 				echo "<script>alert('Data Tidak Ditemukan');</script>";
 			}
+		}else if($_GET['opt'] == "delete_video"){
+			$cID  = $_GET['id'];
+			$cIDProduk = $_GET['idproduk'];
+			$dbDt = mysqli_query($db,"select * from video_product where id='$cID'");
+			if($dbRw = mysqli_fetch_array($dbDt)){
+				if(file_exists("./assets/video/product/".$dbRw['video'])) unlink("./assets/video/product/".$dbRw['video']);
+				mysqli_query($db,"delete from video_product where id='$cID'");
+				echo "<script>alert('Data Dihapus');</script>";
+				echo "<script>window.location.href = 'admin.php?page=products&opt=add_img&id=".$cIDProduk."';</script>";
+			}else{
+				echo "<script>alert('Data Tidak Ditemukan');</script>";
+			}
 		}
+		
 	}
 
 	if(isset($_POST['add_img_product'])){
@@ -89,7 +103,18 @@
 		}else {
 			echo "<script>alert('Gagal');</script>";
 		}
-
+	}
+	if(isset($_POST['add_video_product'])){
+		$cID = $_GET['id'];
+		$cFileName	   = round(microtime(true)*1000);
+		$cDir		   = "./assets/video/product/".$cFileName;
+		if (move_uploaded_file($_FILES["cVideo"]["tmp_name"], $cDir)) {
+			mysqli_query($db,"insert into video_product (id_product,video) values ('$cID','$cFileName')");
+			echo "<script>alert('Data Disimpan');</script>";
+			echo "<script>window.location.href = 'admin.php?page=products&opt=add_img&id=".$cID."';</script>";
+		}else {
+			echo "<script>alert('Gagal');</script>";
+		}
 	}
 ?>
 <?php
@@ -146,7 +171,7 @@ if(!isset($_GET['opt'])){
 								<td><?= $no ?></td>
 								<td><img style="width: 50px" src="assets/images/product/<?= $dbRow['productsImg']; ?>"><small><a href="?page=products&opt=add_img&id=<?= $dbRow['productsId']; ?>" target="_blank" class="btn-block mt-2">Gambar Lainnya</a></small></td>
 								<td><?= $dbRow['productsTitle']; ?></td>
-								<td><?= $dbRow['productsPrice']; ?></td>
+								<td><?= number2String($dbRow['productsPrice']); ?></td>
 								<td><?= $dbRow['productsStock']; ?></td>
 								<td><?= $dbRow['categoriesName']; ?></td>
 								<td><?= $dbRow['productsDate']; ?></td>
@@ -212,15 +237,32 @@ if(!isset($_GET['opt'])){
 							/>
 						</div>
 					</div>
+				</div>
+				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="price">Harga</label>
+							<label for="purchase_price">Harga Beli</label>
+							<input
+								type="text"
+								class="form-control input-money"
+								id="purchase_price"
+								name="nPurchasePrice"
+								placeholder="0"
+								autocomplete="off"
+                                required
+                                value=""
+							/>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="price">Harga Jual</label>
 							<input
 								type="text"
 								class="form-control input-money"
 								id="price"
 								name="nPrice"
-								placeholder="Harga Produk"
+								placeholder="0"
 								autocomplete="off"
                                 required
                                 value=""
@@ -373,7 +415,7 @@ if(!isset($_GET['opt'])){
 				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="title">Title</label>
+							<label for="title">Judul</label>
 							<input
 								type="text"
 								class="form-control"
@@ -386,29 +428,43 @@ if(!isset($_GET['opt'])){
 							/>
 						</div>
 					</div>
+				</div>
+				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="price">Price</label>
+							<label for="price">Harga Beli</label>
+							<input
+								type="text"
+								class="form-control input-money"
+								id="purchase_price"
+								name="nPurchasePrice"
+								placeholder="0"
+								autocomplete="off"
+                                required
+                                value="<?= $dbR['purchase_price']; ?>"
+							/>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="price">Harga Jual</label>
 							<input
 								type="text"
 								class="form-control input-money"
 								id="price"
 								name="nPrice"
-								placeholder="Product Price"
+								placeholder="0"
 								autocomplete="off"
                                 required
                                 value="<?= $dbR['price']; ?>"
 							/>
-							<small id="priceHelp" class="form-text text-muted"
-								>Example of filling 39.25</small
-							>
 						</div>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="stock">Stock</label>
+							<label for="stock">Stok</label>
 							<input
 								type="number"
 								class="form-control"
@@ -423,7 +479,7 @@ if(!isset($_GET['opt'])){
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="cat">Category</label>
+							<label for="cat">Kategori</label>
 							<select class="form-control" id="cat" name="cCategory">
 								<option value="<?= $dbR['category'] ?>"><?= $dbR['name'] ?></option>
 								<?php 
@@ -438,13 +494,13 @@ if(!isset($_GET['opt'])){
 				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="condit">Condition</label>
+							<label for="condit">Kondisi</label>
 							<select class="form-control" id="condit" name="cCondition">
                                 <?php if($dbR['condit'] == 1){ ?>
-                                    <option value="1">New</option>
+                                    <option value="1">Baru</option>
 								    <option value="2">Second</option>
                                 <?php }else{ ?>
-								    <option value="2">Second</option>
+								    <option value="2">Baru</option>
                                     <option value="1">New</option>
                                 <?php } ?>
 							</select>
@@ -452,7 +508,7 @@ if(!isset($_GET['opt'])){
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="weight">Weight</label>
+							<label for="weight">Berat</label>
 							<input
 								type="number"
 								class="form-control"
@@ -495,7 +551,7 @@ if(!isset($_GET['opt'])){
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<label>Old photo</label>
+						<label>Foto Lama</label>
 							<img src="assets/images/product/<?= $dbR['img']; ?>" style="width: 150px">
 							<input type="hidden" name="cOldImg" value="<?= $dbR['img']; ?>">
 					</div>
@@ -538,8 +594,9 @@ if(!isset($_GET['opt'])){
 							from products p
 							left join categories c on p.category=c.id 
 							where p.id='$cID' order by p.id desc");
-	$dbR  = mysqli_fetch_array($dbData);
-	$dbImg = mysqli_query($db,"select * from img_product where id_product='$cID'");
+	$dbR  	 = mysqli_fetch_array($dbData);
+	$dbImg   = mysqli_query($db,"select * from img_product where id_product='$cID'");
+	$dbVideo = mysqli_query($db,"select * from video_product where id_product='$cID'");	
 ?>
 <div class="container-fluid">
 	<!-- Page Heading -->
@@ -575,10 +632,49 @@ if(!isset($_GET['opt'])){
                 <div class="card-body">
                     <form action="?page=products&opt=add_img&id=<?= $dbR['productId']; ?>" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="file" name="cImg" id="img" class="form-control" required>
+                            <input type="file" name="cImg" id="img" class="form-control" accept="image/x-png,image/gif,image/jpeg" required>
                         </div>
                         <input type="hidden" name="help" value="1">
                         <button name="add_img_product" class="btn btn-sm btn-info" type="submit">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <p class="lead mb-0 pb-0">Video</p>
+                </div>
+                <div class="card-body">
+                    <?php if(mysqli_num_rows($dbVideo) > 0){ ?>
+                    <div class="row">
+                        <?php while($dbRVideo = mysqli_fetch_array($dbVideo)){ ?>
+                            <div class="col-md-6 mb-3">
+                                <video src="assets/video/product/<?= $dbRVideo['video'] ?>" controls width="100%"></video>
+                                <a href="?page=products&opt=delete_video&id=<?= $dbRVideo['id']; ?>&idproduk=<?= $cID;?>" class="btn btn-block btn-sm btn-danger mt-1" onclick="return confirm('Apakah Anda Yakin?')">Delete</a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <?php }else{ ?>
+                        <div class="alert alert-warning">Belum ada video untuk produk <?= $dbR['title']; ?> yet</div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <p class="lead mb-0 pb-0">Upload Video</p>
+                </div>
+                <div class="card-body">
+                    <form action="?page=products&opt=add_video&id=<?= $dbR['productId']; ?>" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" name="cVideo" id="video" class="form-control" accept="video/mp4,video/x-m4v,video/*" required>
+                        </div>
+                        <input type="hidden" name="help" value="1">
+                        <button name="add_video_product" class="btn btn-sm btn-info" type="submit">Add</button>
                     </form>
                 </div>
             </div>

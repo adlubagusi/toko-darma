@@ -17,3 +17,7 @@ function number2String($nNumber,$nDecimals=0){
     $nNumber = floatval(string2Number($nNumber)) ;
     return number_format($nNumber,$nDecimals,",",".") ;
 }
+function clean($char){
+    $char = str_replace("'","`",$char);
+    return $char;
+}
