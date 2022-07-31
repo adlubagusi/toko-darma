@@ -11,6 +11,9 @@
 	}
 </script>
 <?php
+include 'include/rajaongkir.php';
+$rajaongkir = new Rajaongkir();
+
 if(isset($_POST['kirim_pesanan'])){
     $cInvoice  = $_GET['invoice'];
     $cNoResi   = $_POST['cNoResi'];
@@ -38,8 +41,11 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
     $dbData = mysqli_query($db,"select * from invoice where invoice_code='$cInvoice'");
     $vaInvoice = mysqli_fetch_array($dbData);
 
-    $dbRegion = mysqli_query($db,"select * from region where id='{$vaInvoice['region']}'");
-    $vaRegion = mysqli_fetch_array($dbRegion);
+    $province  = json_decode($rajaongkir->province($vaInvoice['province']));
+    $province  = $province->rajaongkir->results->province;
+
+    $city_name  = json_decode($rajaongkir->city($vaInvoice['province'],$vaInvoice['city']));
+    $city_name  = $city_name->rajaongkir->results->city_name;
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -74,8 +80,12 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <td><?= $vaInvoice['telp']; ?></td>
                         </tr>
                         <tr>
-                            <td>Wilayah</td>
-                            <td><?= $vaRegion['region']; ?></td>
+                            <td>Provinsi</td>
+                            <td><?= $province; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Kota</td>
+                            <td><?= $city_name; ?></td>
                         </tr>
                         <tr>
                             <td>Alamat Lengkap</td>

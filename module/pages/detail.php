@@ -1,11 +1,15 @@
 <?php
+include 'include/rajaongkir.php';
+$rajaongkir = new Rajaongkir();
+
 $cLink  = $_GET['p'];
 $dbData = mysqli_query($db,"select p.*,p.id AS productId, p.link AS linkP,c.name,c.link
                         from products p
                         left join categories c on p.category=c.id 
                         where p.link='$cLink' group by p.id desc");
 $vaProduct  = mysqli_fetch_array($dbData);
-
+$city_name  = json_decode($rajaongkir->city($vaProduct['province'],$vaProduct['city']));
+$city_name  = $city_name->rajaongkir->results->city_name;
 $vaRating = array();
 $dbRating = mysqli_query($db,"select * from rating where id_product='{$vaProduct['productId']}'");
 while($dbRow = mysqli_fetch_array($dbRating)){
@@ -48,12 +52,12 @@ while($dbRow = mysqli_fetch_array($dbRating)){
                 <h1 class="title"><?= $vaProduct['title']; ?></h1>
                 <p class="subtitle">
                     Terjual <?= $vaProduct['transaction']; ?> Produk &bull; <?= $vaProduct['viewer'] + 1; ?>x Dilihat<br>
-                    Dikirim dari <?= $vaProduct['region']?>
+                    Dikirim dari <?= $city_name?>
                 </p>
                 <hr>
-                <div class="alert alert-dismissible alert-success">
+                <!-- <div class="alert alert-dismissible alert-success">
                     Untuk cek ongkir, silahkan klik <a href="https://berdu.id/cek-ongkir" target="_blank" class="alert-link">disini</a>.
-                </div>
+                </div> -->
                 <table>
                     <tr>
                         <td class="t">Harga</td>
