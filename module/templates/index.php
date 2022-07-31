@@ -40,7 +40,7 @@
       type="image/x-icon"
     />
 
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script
       src="https://kit.fontawesome.com/2baad1d54e.js"
       crossorigin="anonymous"
@@ -131,7 +131,8 @@
 
 <div class="search-form">
   <i class="fa fa-times"></i>
-  <form action="http://localhost/olshop/search" method="get">
+  <form action="index.php" method="get">
+    <input type="hidden" name="page" value="search">
     <input type="text" placeholder="Search a product" autocomplete="off" name="q"><!--
     --><button type="submit" style="background-color: #bbaaa4">Search</i></button>
   </form>
@@ -202,6 +203,7 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="assets/lightbox2-2.11.1/dist/js/lightbox.js"></script>
+    <script src="assets/select2-4.0.6-rc.1/dist/js/select2.min.js"></script>
     <script src="assets/js/jquery.countdown.min.js"></script>
     <script>
         $('.recent-product').slick({
@@ -241,6 +243,114 @@
             }
             return false;
         })
+      
+      <?php
+      if(isset($_GET['page']) && $_GET['page'] == "payment"){
+      ?>
+        $("#selectProvince").select2({
+            allowClear: true,
+            placeholder: 'Select Province',
+            language: 'id',
+            ajax: {
+                url: "?page=payment&action=getprovice",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
+        });
+        $("#selectProvince").change(getCity);
 
+        function getCity(){
+            const id = $("#selectProvince").val();
+            $("#selectCity").select2({
+                allowClear: true,
+                placeholder: 'Select City',
+                language: 'id',
+                ajax: {
+                    url: "?page=payment&action=getcity&id_province="+id,
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
+        function setKurir(origin,courier,weight,cost_id){
+            const destination = $("#selectCity").val();
+            $.ajax({
+                url: "?page=payment&action=getlistshippingcost",
+                type: "post",
+                dataType: "html",
+//                 async: true,
+                data: {
+                    origin: origin,
+                    destination: destination,
+                    courier: courier,
+                    weight: weight,
+                    cost_id: cost_id
+                },
+                success: function(data){
+                    $("#kurirserviceinfo_"+cost_id).html(data);
+                    $("#kuririnfo_"+cost_id).css('display','block');
+                }
+            });
+        }
+
+        $("#selectRegionPayment").change(paymentOngkirPrice)
+
+        function paymentOngkirPrice(){
+            $("#paymentSendingPrice").text("Loading..")
+            const id = $("#selectRegionPayment").val();
+            $.ajax({
+                url: "?page=payment/getLocationOngkir",
+                type: "post",
+                dataType: "json",
+                async: true,
+                data: {
+                    id: id
+                },
+                success: function(data){
+                    $("#paymentSendingPrice").text("Rp"+convertToNumber(data));
+                    const price = "<?= $nTotalPrice; ?>";
+                    const total = parseInt(price) + parseInt(data);
+                    $("#paymentTotalAll").text("Rp>"+convertToNumber(total));
+                }
+            });
+        }
+
+        function countTotalShipppingCost(rowid,ongkir){
+            $.ajax({
+                url: "?page=payment&action=countshipppingcost",
+                type: "post",
+                dataType: "json",
+                async: true,
+                data: {
+                    rowid: rowid,
+                    ongkir: ongkir,
+                },
+                success: function(reply){
+                    $("#paymentSendingPrice").html("Rp"+convertToNumber(reply,2));
+                    var price = "<?= $nTotalPrice; ?>";
+                    // price     = price.slice(0,-2);
+                    const total = parseInt(price) + parseInt(reply);
+                    console.log(price);
+                    console.log(reply);
+                    $("#paymentTotalAll").text("Rp"+convertToNumber(total));
+                }
+            });
+
+        }
+      <?php
+      }
+      ?>
     </script>
 </html>

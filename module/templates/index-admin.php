@@ -1,4 +1,8 @@
 <?php   
+  if(isset($_GET['action']) || isset($_POST['action'])){
+    include $page;
+    exit;
+  }
     $dbSettings    = mysqli_query($db,"select * from settings");
     $vaSettings    = mysqli_fetch_array($dbSettings);
     $dbGeneral     = mysqli_query($db,"select * from general");
@@ -46,7 +50,6 @@
       type="image/x-icon"
     />
 
-    <link rel="stylesheet" media="screen" type="text/css" href="assets/css/colorpicker.css" />
 
     <style>
 
@@ -329,6 +332,62 @@ $("#showModalBodyAddPromo .input-money-hide").maskMoney();
 
 $('#modalInfoForDemoMode').modal('show');
 
+
+$("#selectProvince").select2({
+    allowClear: true,
+    placeholder: 'Select Province',
+    language: 'id',
+    ajax: {
+        url: "?page=products&action=getprovice",
+        dataType: 'json',
+        delay: 250,
+        processResults: function (data) {
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
+});
+$("#selectProvince").change(getCity);
+function getCity(){
+    const id = $("#selectProvince").val();
+    $("#selectCity").select2({
+        allowClear: true,
+        placeholder: 'Select City',
+        language: 'id',
+        ajax: {
+            url: "?page=products&action=getcity&id_province="+id,
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+}
+function setSelect2(selector, id, text){
+    $(selector)
+      .find('option')
+      .remove()
+      .end()
+      .append('<option value="'+id+'">'+text+'</option>');
+}
+<?php
+if(isset($province_id)){
+?>
+setSelect2("#selectProvince",'<?=$province_id?>','<?=$province_text?>');
+<?php
+}
+if(isset($city_id)){
+?>
+setSelect2("#selectCity",'<?=$city_id?>','<?=$city_text?>');
+<?php
+}
+?>
 </script>
 
 </body>

@@ -65,7 +65,7 @@ if(isset($_GET['delete'])){
                     <?php } ?>
                     <div class="clearfix"></div>
                 </div>
-                <a href="?page=cart&delete=<?= $item['id']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari keranjang')"><i class="fa fa-trash"></i></a>
+                <a href="?page=cart&delete=<?= $item['id']; ?>" class="text-dark" title="delete" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini dari keranjang')"><i class="fa fa-trash-o"></i></a>
             </div>
             <hr>
             <?php 

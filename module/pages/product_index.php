@@ -99,7 +99,7 @@ h2.title.float-left {
                     <img src="assets/images/product/<?= $dbRow['img']; ?>" class="card-img-top" style="height: 190px; object-fit: cover;">
                     <div class="card-body" style="padding:10px;">
                         <p class="card-text line-3 mb-0"><?= $dbRow['title']; ?></p>
-                        <p class="newPrice">Rp <?= $dbRow['price']; ?></p>
+                        <p class="newPrice">Rp <?= number2String($dbRow['price']); ?></p>
                     </div>
                 </div>
                 </a>

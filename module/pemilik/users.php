@@ -60,7 +60,7 @@ if(!isset($_GET['opt'])){
 		</div>
 		<div class="card-body">
             <?php 
-            $dbData = mysqli_query($db,"select * from users where level='admin'");
+            $dbData = mysqli_query($db,"select * from users");
             if(mysqli_num_rows($dbData) > 0){ ?>
 			<div class="table-responsive">
 				<table
@@ -74,9 +74,9 @@ if(!isset($_GET['opt'])){
 							<th>#</th>
 							<th>Nama</th>
                             <th>Alamat</th>
-                            <th>Kode Pos</th>
                             <th>No. Telp</th>
                             <th>Email</th>
+                            <th>Level</th>
                             <th>Aksi</th>
 						</tr>
 					</thead>
@@ -88,9 +88,9 @@ if(!isset($_GET['opt'])){
                             <td><?= $no ?></td>
                             <td><?= $dbRow['name']; ?></td>
                             <td><?= $dbRow['address']; ?></td>
-                            <td><?= $dbRow['poscode']; ?></td>
                             <td><?= $dbRow['telp']; ?></td>
                             <td><?= $dbRow['email']; ?></td>
+                            <td><?= $dbRow['level']; ?></td>
                             <td>
                                 <a href="?page=users&opt=edit&id=<?= $dbRow['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-pen"></i></a>
                                 <a href="?page=users&opt=delete&id=<?= $dbRow['id']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus user ini?')" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>

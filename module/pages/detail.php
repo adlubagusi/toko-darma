@@ -1,11 +1,15 @@
 <?php
+include 'include/rajaongkir.php';
+$rajaongkir = new Rajaongkir();
+
 $cLink  = $_GET['p'];
 $dbData = mysqli_query($db,"select p.*,p.id AS productId, p.link AS linkP,c.name,c.link
                         from products p
                         left join categories c on p.category=c.id 
                         where p.link='$cLink' group by p.id desc");
 $vaProduct  = mysqli_fetch_array($dbData);
-
+$city_name  = json_decode($rajaongkir->city($vaProduct['province'],$vaProduct['city']));
+$city_name  = $city_name->rajaongkir->results->city_name;
 $vaRating = array();
 $dbRating = mysqli_query($db,"select * from rating where id_product='{$vaProduct['productId']}'");
 while($dbRow = mysqli_fetch_array($dbRating)){
@@ -33,22 +37,31 @@ while($dbRow = mysqli_fetch_array($dbRating)){
                     while($vaImg = mysqli_fetch_array($dbImg)){ ?>
                         <img src="assets/images/product/<?= $vaImg['img']; ?>" alt="gambar" class="thumb">
                     <?php } ?>
+                    <?php 
+                    $dbVideo = mysqli_query($db,"select * from video_product where id_product='{$vaProduct['productId']}'");
+                    while($vaVideo = mysqli_fetch_array($dbVideo)){ ?>
+                        <!-- <div class="video-img" onclick="openVideo('<?= $vaVideo['video'];?>')"> -->
+                        <a href="#" class="video-img" data-toggle="modal" data-target="#modalShowVideo" onclick="showVideo('<?= $vaVideo['video']; ?>')">
+                            <video src="assets/video/product/<?= $vaVideo['video']; ?>" alt="" class=""></video>
+                        </a> 
+                        <!-- </div> -->
+                    <?php } ?>
                 </div>
             </div>
             <div class="ket">
                 <h1 class="title"><?= $vaProduct['title']; ?></h1>
                 <p class="subtitle">
                     Terjual <?= $vaProduct['transaction']; ?> Produk &bull; <?= $vaProduct['viewer'] + 1; ?>x Dilihat<br>
-                    Dikirim dari <?= $vaProduct['region']?>
+                    Dikirim dari <?= $city_name?>
                 </p>
                 <hr>
-                <div class="alert alert-dismissible alert-success">
+                <!-- <div class="alert alert-dismissible alert-success">
                     Untuk cek ongkir, silahkan klik <a href="https://berdu.id/cek-ongkir" target="_blank" class="alert-link">disini</a>.
-                </div>
+                </div> -->
                 <table>
                     <tr>
                         <td class="t">Harga</td>
-                        <td class="price">Rp <?= $vaProduct['price']; ?></td>
+                        <td class="price">Rp <?= number2String($vaProduct['price']); ?></td>
                     </tr>
                     <tr>
                         <td class="t">Kondisi</td>
@@ -69,7 +82,7 @@ while($dbRow = mysqli_fetch_array($dbRating)){
                     <?php if($vaProduct['stock'] > 0){ ?>
                     <tr>
                         <?php $priceP = $vaProduct['price']; ?>
-                        <td class="t">Stok</td>
+                        <td class="t">Qty</td>
                         <td>
                             <button onclick="minusProduct('<?= $priceP; ?>')">-</button><!--
                         --><input disabled type="text" value="1" id="qtyProduct" class="valueJml"><!--
@@ -78,7 +91,7 @@ while($dbRow = mysqli_fetch_array($dbRating)){
                     </tr>
                     <tr>
                         <td class="t">Total</td>
-                        <td>Rp <span id="detailTotalPrice"><?= $priceP; ?></span></td>
+                        <td>Rp <span id="detailTotalPrice"><?= number2String($priceP); ?></span></td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -172,6 +185,25 @@ while($dbRow = mysqli_fetch_array($dbRating)){
     <hr>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modalShowVideo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle"><?= $vaProduct['title']; ?></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeVideo()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="bodymodalShowVideo">
+            
+        </div>
+        <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary" id="btnEditKetProduct" data-dismiss="modal">Save</button> -->
+        </div>
+        </div>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script>
     function plusProduct(price, stock){
@@ -201,10 +233,10 @@ while($dbRow = mysqli_fetch_array($dbRating)){
     function convertToNumberDetail(string, multiplier){
         let number = string.replace(',', '').replace('.','');
         number = parseInt(number);
-        number = number/100;
+        // number = number/100;
         number = number * multiplier;
         const formatter = new Intl.NumberFormat('id-ID', {
-            minimumFractionDigits: 2
+            minimumFractionDigits: 0
         })
         number = formatter.format(number);
         return number;
@@ -268,7 +300,7 @@ while($dbRow = mysqli_fetch_array($dbRating)){
                 $(".navbar-cart-inform").html(`<i class="fa fa-shopping-cart"></i> Cart(1)`);
                 swal({
                     title: "Berhasil Ditambahkan ke Keranjang",
-                    text: `<?= $vaProduct['title']; ?>`,
+                    text: "<?= $vaProduct['title']; ?>",
                     icon: "success",
                     buttons: true,
                     buttons: ["Lanjutkan Belanja", "Lihat Keranjang"],
@@ -299,6 +331,14 @@ while($dbRow = mysqli_fetch_array($dbRating)){
         }
     })
 
-    
+    function showVideo(video){
+        $("#bodymodalShowVideo").html(`<div class="video-img-area">
+            <video src="assets/video/product/`+video+`" controls></video>
+        </div>`);     
+    }    
+
+    function closeVideo(){
+        $("#bodymodalShowVideo").html("");   
+    }
 
 </script>

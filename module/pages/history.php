@@ -16,17 +16,18 @@ if(isset($_GET['action'])){
         }
     }else if($_GET['action'] == "terima_pesanan"){
         $cInvoice = $_GET['invoice'];
+        //update barang terjual dan stok
+        $dbData = mysqli_query($db,"select * from transaction where id_invoice='$cInvoice'");
+        while($dbRow = mysqli_fetch_array($dbData)){
+            $cLink = $dbRow['link'];
+            $dbDt = mysqli_query($db,"select * from products where link='$cLink'");
+            if($dbR = mysqli_fetch_array($dbDt)){
+                $nTransaction = $dbR['transaction'] + $dbRow['qty']; 
+                $nStock       = $dbR['stock'] - $dbRow['qty'];
+                mysqli_query($db,"update products set transaction='$nTransaction',stock='$nStock' where id='{$dbR['id']}'");
+            }
+        }
         mysqli_query($db,"update invoice set status_delivery='3' where invoice_code='$cInvoice'");
-        //update barang terjual
-        // $dbData = mysqli_query($db,"select * from transaction where id_invoice='$cInvoice'");
-        // while($dbRow = mysqli_fetch_array($dbData)){
-        //     $cLink = $dbRow['Link'];
-        //     $dbDt = mysqli_query($db,"select * from products where link='$cLink'");
-        //     if($dbR = mysqli_fetch_array($dbDt)){
-        //         $nTransaction = $dbR['transaction'] + $dbRow['qty']; 
-        //         mysqli_query($db,"update products set transaction='$nTransaction' where id='{$dbR['id']}'");
-        //     }
-        // }
         echo "<script>alert('Pesanan Sudah Diterima');</script>";
         echo "<script>window.location.href = 'index.php?page=history';</script>";
     }else if($_GET['action'] == "get_item"){
@@ -79,12 +80,17 @@ if(isset($_GET['action'])){
 }
 
 if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
+    include 'include/rajaongkir.php';
+    $rajaongkir = new Rajaongkir();
     $cInvoice = $_GET['invoice'];
     $dbData = mysqli_query($db,"select * from invoice where invoice_code='$cInvoice'");
     $vaInvoice = mysqli_fetch_array($dbData);
 
-    $dbRegion = mysqli_query($db,"select * from region where id='{$vaInvoice['region']}'");
-    $vaRegion = mysqli_fetch_array($dbRegion);
+    $province  = json_decode($rajaongkir->province($vaInvoice['province']));
+    $province  = $province->rajaongkir->results->province;
+
+    $city_name  = json_decode($rajaongkir->city($vaInvoice['province'],$vaInvoice['city']));
+    $city_name  = $city_name->rajaongkir->results->city_name;
 
     $vaRating = array();
     $dbRating = mysqli_query($db,"select * from rating where id_invoice='$cInvoice'");
@@ -122,8 +128,12 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <td><?= $vaInvoice['telp']; ?></td>
                         </tr>
                         <tr>
-                            <td>Wilayah</td>
-                            <td><?= $vaRegion['region']; ?></td>
+                            <td>Provinsi</td>
+                            <td><?= $province; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Kota</td>
+                            <td><?= $city_name; ?></td>
                         </tr>
                         <tr>
                             <td>Alamat Lengkap</td>

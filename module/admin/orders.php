@@ -11,6 +11,9 @@
 	}
 </script>
 <?php
+include 'include/rajaongkir.php';
+$rajaongkir = new Rajaongkir();
+
 if(isset($_POST['kirim_pesanan'])){
     $cInvoice  = $_GET['invoice'];
     $cNoResi   = $_POST['cNoResi'];
@@ -38,8 +41,11 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
     $dbData = mysqli_query($db,"select * from invoice where invoice_code='$cInvoice'");
     $vaInvoice = mysqli_fetch_array($dbData);
 
-    $dbRegion = mysqli_query($db,"select * from region where id='{$vaInvoice['region']}'");
-    $vaRegion = mysqli_fetch_array($dbRegion);
+    $province  = json_decode($rajaongkir->province($vaInvoice['province']));
+    $province  = $province->rajaongkir->results->province;
+
+    $city_name  = json_decode($rajaongkir->city($vaInvoice['province'],$vaInvoice['city']));
+    $city_name  = $city_name->rajaongkir->results->city_name;
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -74,8 +80,12 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                             <td><?= $vaInvoice['telp']; ?></td>
                         </tr>
                         <tr>
-                            <td>Wilayah</td>
-                            <td><?= $vaRegion['region']; ?></td>
+                            <td>Provinsi</td>
+                            <td><?= $province; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Kota</td>
+                            <td><?= $city_name; ?></td>
                         </tr>
                         <tr>
                             <td>Alamat Lengkap</td>
@@ -235,8 +245,8 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                         ?>
                         <div class="row">
                             <?php while($dbRImg = mysqli_fetch_array($dbImg)){ ?>
-                                <div class="col-md-6 mb-3">
-                                    <img src="assets/images/refund/<?= $dbRImg['img'] ?>" width="100%">
+                                <div class="col-md-4 mb-3" style="height:350px;">
+                                    <img src="assets/images/refund/<?= $dbRImg['img'] ?>" width="100%"  height="100%">
                                 </div>
                             <?php } ?>
                         </div>
@@ -246,6 +256,28 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                     </div>
                 </div>
                 <div class="card shadow mb-4">
+                <div class="card-header">
+                    <p class="lead mb-0 pb-0">Bukti Video (Max 1)</p>
+                </div>
+                <div class="card-body">
+                    <?php 
+                        $dbVideo = mysqli_query($db,"select * from video_refund where id_invoice='$cInvoice'");
+                        if(mysqli_num_rows($dbVideo) > 0){ 
+                    ?>
+                    <div class="row">
+                        <?php while($dbRVideo = mysqli_fetch_array($dbVideo)){ ?>
+                            <div class="col-md-4 mb-3" style="height:350px;">
+                                <video src="assets/video/refund/<?= $dbRVideo['video'] ?>" width="100%" height="100%" controls></video>
+                                <a href="?page=refund&opt=delete_other_video&id=<?= $dbRVideo['id']; ?>&idinvoice=<?= $cID;?>" class="btn btn-block btn-sm btn-danger mt-1" onclick="return confirm('Apakah Anda Yakin?')">Delete</a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <?php }else{ ?>
+                        <div class="alert alert-warning">Belum ada video</div>
+                    <?php } ?>
+                </div>
+            </div>
+                <div class="card shadow mb-4">
                     <div class="card-header">
                         <p class="lead mb-0 pb-0">Alasan Pengembalian</p>
                     </div>
@@ -253,7 +285,13 @@ if(isset($_GET['invoice']) && $_GET['invoice'] <> ""){
                         <div class="alert alert-info"><?= $vaInvoice['refund_text']?></div>
                     </div>
                 </div>
+                <?php
+                 if($vaInvoice['status_refund']==1){
+                ?>
                 <a href="?page=orders&opt=refund&invoice=<?= $vaInvoice['invoice_code']; ?>" onclick="return confirm('Anda sudah menerima barang dan sudah mengembalikan dana?');" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Barang Sudah Diterima</a>
+                <?php
+                 }
+                ?>
             <?php } ?>
         </div>
     </div>

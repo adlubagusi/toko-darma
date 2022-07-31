@@ -20,7 +20,7 @@ if(isset($_GET['page'])){
         $page = "module/pages/cart.php";
         $css  = 'cart.css';
         $responsive = '';
-    }else if($url == "products"){
+    }else if($url == "products" || $url == "search"){
         $page = "module/pages/products.php";
         $css = 'products.css';
         $responsive = 'product-responsive.css';
